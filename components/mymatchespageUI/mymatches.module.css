@@ -55,18 +55,13 @@
     font-size: 20px; 
     font-weight: 800;
     margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 .mentor .jobtitle{
     font-size: 18px;
     font-weight: 600;
-    margin-bottom: 5px;
-}
-.mentor .experience{
-    font-size: 18px;
-    font-weight: 400;
     margin-bottom: 15px;
-}
+} 
 .button{
     color:  #F0F3FA;
     background-color: black;

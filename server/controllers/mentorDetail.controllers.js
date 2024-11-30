@@ -2,16 +2,16 @@ import { Mentor } from "../models/mentor.model.js";
 import { google } from 'googleapis';
 import fs from 'fs';
 
-// Load credentials
-const credentials = JSON.parse(fs.readFileSync('./creditentials.json'));
-const { client_id, client_secret, redirect_uris } = credentials.web;
+// // Load credentials
+// const credentials = JSON.parse(fs.readFileSync('./creditentials.json'));
+// const { client_id, client_secret, redirect_uris } = credentials.web;
 
-// Set up OAuth2 client
-const oAuth2Client = new google.auth.OAuth2(
-    client_id,
-    client_secret,
-    redirect_uris[0]
-);
+// // Set up OAuth2 client
+// const oAuth2Client = new google.auth.OAuth2(
+//     client_id,
+//     client_secret,
+//     redirect_uris[0]
+// );
 
 // Generate auth URL for Google login
 export const loginAuth = async (req, res) => {

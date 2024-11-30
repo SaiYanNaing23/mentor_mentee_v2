@@ -5,8 +5,6 @@ import { useAuthStore } from '@/store/auth'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
-
-
 const page = () => {
   const { user } = useAuthStore()
   const router = useRouter()
