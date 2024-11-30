@@ -1,0 +1,58 @@
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+node_modules/
+.pnpm-debug.log
+
+# Build and production files
+dist/
+build/
+*.cache/
+
+# Runtime data
+*.pid
+*.seed
+*.pid.lock
+
+# Environment files
+.env
+.env.*.local
+
+# IDE files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Testing
+coverage/
+.jest/
+.nyc_output/
+
+# Linting
+.eslintcache
+
+# Bundler files
+.parcel-cache/
+.next/
+out/
+.nuxt/
+
+# Other files
+*.log
+*.lock
+*.tmp
+*.bak
+*.orig
