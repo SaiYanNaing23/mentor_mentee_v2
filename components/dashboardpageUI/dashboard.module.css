@@ -17,7 +17,6 @@
 }
 .contentdiv{
     width: 100%; 
-    /* padding: 20px; */
     padding-right: 20px;
     height: 100vh;
     overflow-y: scroll;
@@ -32,26 +31,34 @@
     font-size: 20px;
     font-weight: 700;
 }
+
 .profilediv{
     margin-top: 250px; 
     bottom: 0;
-    /* display: flex; 
-    justify-content: center;  */
-    text-align: end;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    text-align: center;
+}
+.items li:hover {
+    transform: scale(1.1); 
+    color: #00206B; 
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
 /* Welcome Div */
 .welcomediv{
     display: flex; 
     padding: 10px;
-    /* margin-bottom: 20px; */
+    margin-top: 20px;
     align-items: center;
     padding: 24px 0;
 }
 .welcomediv .leftdiv{
     width: 50%; 
-    padding-left: 30px;
-}.welcomediv .rightdiv{
+    padding-left: 50px;
+}
+.welcomediv .rightdiv{
     width: 50%;
 }
 .maintitle{ 
@@ -60,7 +67,7 @@
     margin-bottom: 30px;
 }
 .text{
-    font-size: 24px;
+    font-size: 22px;
     line-height: 30px;
     font-weight: 600;
 }

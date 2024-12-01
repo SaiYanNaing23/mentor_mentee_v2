@@ -9,7 +9,8 @@ const Testimonials = () => {
         console.log(toggle)
     }
     return (
-    <div className='mt-[150px] mb-[200px]'>
+    <div className='mt-[50px] mb-[50px]'>
+        <h1 className={style.sectiontitle}>Endorsement by Mentors</h1>
         <div>
             <ul className={style.titlelist}>
                 <li className={toggle == 1 ? style.titleactive : style.title} onClick={() => toggleTab(1)} >Information Technology</li>

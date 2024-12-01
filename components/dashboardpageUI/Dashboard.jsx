@@ -23,8 +23,7 @@ const Sidenav = () => {
             Begin your match-making journey!</h3>
           </div>
           <div className={style.rightdiv}>
-            <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
-            <dotlottie-player src="https://lottie.host/12a84332-5921-4cc8-81d5-6caff3c9d857/4riMVeHiKE.json" background="transparent" speed="1" direction="1" playMode="normal" loop autoplay></dotlottie-player>
+          <img src="../../assets/images/dashboard.svg" alt="Profile icon" width="550px"/><br/>
           </div>
         </div>
 

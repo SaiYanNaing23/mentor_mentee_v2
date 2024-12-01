@@ -2,7 +2,7 @@ import { Mentor } from "../models/mentor.model.js";
 import { google } from 'googleapis';
 import fs from 'fs';
 
-// Load credentials
+// // Load credentials
 // const credentials = JSON.parse(fs.readFileSync('./creditentials.json'));
 // const { client_id, client_secret, redirect_uris } = credentials.web;
 

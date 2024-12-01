@@ -2,93 +2,83 @@ import { User } from "../models/user.model.js";
 import bcryptjs from 'bcryptjs';
 import { generateTokenAndSetCookie } from "../utils/generateJwtToken.js";
 
-export const signUp = async (req, res) =>{
+export const signUp = async (req, res) => {
     try {
         const { password, email } = req.body;
 
-        // if(!username || !password || !email) {
-        //     return res.status(400).json({ message: 'All fields are required', success: false });
-        // }
-
-        //email validation
+        // Validate email format
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if(!emailRegex.test(email)) {
+        if (!emailRegex.test(email)) {
             return res.status(400).json({ message: 'Invalid email format', success: false });
         }
 
-        //password validation
-        if(password.length < 6) {
+        // Validate password length
+        if (password.length < 6) {
             return res.status(400).json({ message: 'Password must be at least 6 characters.', success: false });
         }
 
-        const exitingUserByEmail = await User.findOne({email : email});
-
-        if(exitingUserByEmail){
+        // Check if email already exists
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
             return res.status(400).json({ message: 'Email already exists', success: false });
         }
 
-        // const exitingUserByUsername = await User.findOne({username : username});
+        // Hash the password
+        const salt = await bcryptjs.genSalt(10);
+        const hashedPassword = await bcryptjs.hash(password, salt);
 
-        // if(exitingUserByUsername){
-        //     return res.status(400).json({ message: 'Username already exists', success: false });
-        // }
-
-        const salt = await bcryptjs.genSalt(10)
-        const hashedPassword = await bcryptjs.hash(password, salt)
-      
-
+        // Create a new user
         const newUser = new User({
-            // username,
-            password: hashedPassword,
             email,
+            password: hashedPassword,
         });
-        
-        if(newUser){
-            const token = generateTokenAndSetCookie(newUser._id, res);
-            await newUser.save();
-            res.status(201).json({success: true, user: {
-                ...newUser._doc,
-                password: '',
-                token: token,
-            } });
-        }
 
+        // Save user and generate token
+        const savedUser = await newUser.save();
+        const token = generateTokenAndSetCookie(savedUser._id, res);
 
+        res.status(201).json({
+            success: true,
+            user: { ...savedUser._doc, password: '', token },
+        });
     } catch (error) {
-        console.log(error.message)
+        console.error(error.message);
         res.status(500).json({ message: 'Internal Server Error', success: false });
     }
-}
+};
 
 export const login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        if(!email || !password) {
+        // Validate email and password presence
+        if (!email || !password) {
             return res.status(400).json({ message: 'All fields are required', success: false });
         }
-        
-        const user = await User.findOne({email : email});
 
-        if(!user){
+        // Find user by email
+        const user = await User.findOne({ email });
+        if (!user) {
             return res.status(404).json({ message: 'Invalid credentials', success: false });
         }
 
+        // Compare passwords
         const isCorrectPassword = await bcryptjs.compare(password, user.password);
-
-        if(!isCorrectPassword){
-            return res.status(400).json({ message: 'User name or password is wrong.', success: false });
+        if (!isCorrectPassword) {
+            return res.status(400).json({ message: 'Invalid credentials', success: false });
         }
 
+        // Generate token and return success response
         const token = generateTokenAndSetCookie(user._id, res);
-
-        res.status(200).json({ success: true, token : token })
-
+        res.status(200).json({
+            success: true,
+            user: { ...user._doc, password: '', token },
+        });
     } catch (error) {
-        console.log(error.message)
+        console.error(error.message);
         res.status(500).json({ message: 'Internal Server Error', success: false });
     }
-}
+};
 
 export async function logout (req, res) {
     try {
@@ -100,11 +90,11 @@ export async function logout (req, res) {
     }
 }
 
-export const authCheck = async (req , res) => {
+export const authCheck = async (req, res) => {
     try {
-        res.status(200).json({ success: true, user: req.user  });
+        res.status(200).json({ success: true, user: req.user });
     } catch (error) {
-        console.log(error)
+        console.error(error);
         res.status(500).json({ message: 'Internal Server Error', success: false });
     }
-}
+};

@@ -6,11 +6,8 @@
 .logodiv{
     width: 80%;
 }
-.notidiv{
-    width: 5%;
-}
 .btndiv{
-    width: 15%;
+    width: 20%;
 }
 .browse{
     color:  #F0F3FA;
@@ -21,4 +18,21 @@
     padding: 10px 20px; 
     cursor: pointer;
 }
+.logout {
+    color: #FFFFFF;
+    background-color: red; 
+    border: 1px solid red;
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-left: 10px; 
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.logout:hover {
+    background-color: darkred;
+    color: #F0F3FA;
+}
+
 

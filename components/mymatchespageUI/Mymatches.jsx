@@ -57,7 +57,6 @@ const Mymatches = () => {
                         <img src="../../assets/images/profile.svg" alt="profile picture" className={style.image}></img>
                         <h2 className={style.name}>David Johnson</h2>
                         <p className={style.jobtitle}>Web Frontend Developer</p>
-                        <p className={style.experience}>3 years</p>
                         <button className={style.button}>View Profile</button>
                     </div>
                     {/* Mentor 2 */}
@@ -65,7 +64,6 @@ const Mymatches = () => {
                         <img src="../../assets/images/profile.svg" alt="profile picture" className={style.image}></img>
                         <h2 className={style.name}>Ryan Paul Kim</h2>
                         <p className={style.jobtitle}>Operation Manager</p>
-                        <p className={style.experience}>8 years</p>
                         <button className={style.button}>View Profile</button>
                     </div>
                     {/* Mentor 3 */}
@@ -73,7 +71,6 @@ const Mymatches = () => {
                         <img src="../../assets/images/profile.svg" alt="profile picture" className={style.image}></img>
                         <h2 className={style.name}>Hazel Ley</h2>
                         <p className={style.jobtitle}>Data Analyst</p>
-                        <p className={style.experience}>4 years</p>
                         <button className={style.button}>View Profile</button>
                     </div>
                 </div>

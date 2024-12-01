@@ -160,9 +160,11 @@ const Buildingprofile = () => {
                 </div>
                 <div className={style.background}>
                     <h1 className={style.title}>Background</h1>
-                    <h2 className={style.smalltitle}>Educational Background</h2>
+                    <h2 className={style.smalltitle}>Professional Field</h2>
+                    <p className={style.text}>{selectedField}</p>
+                    <h2 className={style.smalltitle}>Current Company</h2>
                     <p className={style.text}>{company}</p>
-                    <h2 className={style.smalltitle}>Job Experience</h2>
+                    {/* <h2 className={style.smalltitle}>Job Experience</h2> */}
                 </div>
             </div>  
         </div>
