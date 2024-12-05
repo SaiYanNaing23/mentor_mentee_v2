@@ -55,9 +55,7 @@ export const deleteAnc = async(req, res) => {
 // Showing Existing Announcement 
 export const showAnc = async(req, res) => {
     try {
-        const { id } = req.body; 
-
-        const showAnc = await Announcement.findById(id); 
+        const showAnc = await Announcement.find(); 
 
         // Failed showing announcement
         if(!showAnc) {
@@ -66,7 +64,7 @@ export const showAnc = async(req, res) => {
 
         // Successful showing announcement
         res.status(201).json({success: true,
-            ...showAnc._doc
+            announcement : showAnc
         }); 
     }
 
@@ -79,10 +77,9 @@ export const showAnc = async(req, res) => {
 // Updating Existing Announcement
 export const editAnc = async(req, res) => {
     try {
-        const { id } = req.body; 
-        const { title, content, date } = req.body;  
+        const { title, content, id } = req.body;  
 
-        const editAnc = await Announcement.findByIdAndUpdate(id, { title, content, date }); 
+        const editAnc = await Announcement.findByIdAndUpdate(id, { title, content }); 
 
         // Failed editing announcement
         if(!editAnc) {

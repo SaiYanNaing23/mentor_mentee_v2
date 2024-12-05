@@ -1,8 +1,13 @@
-import React from 'react'
+'use client'
+import React, { useEffect } from 'react'
 import style from '@/components/aboutpageUI/about.module.css'
 import Footer from '@/components/initialpageUI/Footer'
 import SideNavBar from '../navbar/sideNavBar'
+import { validateToken } from '@/utils/helper'
 const About = () => {
+  useEffect(()=> {
+    validateToken()
+  }, [])
   return (
     <div className={style.maindiv}>
         {/* Side Nav bar */}

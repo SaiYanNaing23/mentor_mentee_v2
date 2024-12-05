@@ -9,7 +9,6 @@ import ContentBasedRecommender from 'content-based-recommender';
 export const field = async (req,res) => {
     try {
         const fields = await Field.find();
-        console.log(fields)
 
         res.status(200).json({ content : fields, success: true });
     } catch (error) {
@@ -73,9 +72,7 @@ export const specialization= async (req, res) => {
 export const getSkill= async (req, res) => {
     try {
         const { specialization } = req.body;
-        console.log( "specialization", specialization );
         const skill = await Skill.findOne({ specialization : specialization })
-        console.log( "skill", skill );
 
         if(!skill){
             res.status(400).json({ message: "skill not found", success: false });
@@ -178,7 +175,6 @@ export const matching = async (req, res) => {
                 content: mentor.skills.join(" "),
             })
         })
-        console.log("mentorFilteredBySpecification", mentorFilteredBySpecification)
 
         const userSkills = [
             {
@@ -191,11 +187,9 @@ export const matching = async (req, res) => {
 
         let MatchedByUserSkills = []
         for (let userSkill of userSkills) {
-            console.log("Testing no mentor", userSkill)
             const relatedTags = recommender.getSimilarDocuments(userSkill.id);
             MatchedByUserSkills.push(...relatedTags);
         }
-        console.log("MatchedByUserSkills", MatchedByUserSkills)
         
         const matchedMentorsByScores = mentorsFilteredBySpecification.map((mentor) => {
             const skillMatch = MatchedByUserSkills.find(idObj => idObj.id === mentor.id);
@@ -217,7 +211,6 @@ export const matching = async (req, res) => {
                 ...fullMentor.toObject(),
             };
         });
-        console.log("sortedTopMentors", sortedTopMentors)
 
         const matchedMentors = matchedMentorsBySpecifications.filter((mentor)=> 
             skills.some(userSkill => 

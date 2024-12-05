@@ -5,6 +5,7 @@ import blogRouters from './routes/blog.routes.js';
 import announcementRouters from './routes/announcement.routes.js';
 import profileRouters from './routes/profile.routes.js';
 import mentorDetailRouters from './routes/mentorDetail.routes.js';
+import exploreRouters from './routes/explore.routes.js';
 
 // Connect to the Mongo DB
 import { connectDB } from './configs/db.js'
@@ -23,7 +24,7 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: 'http://localhost:3000', // replace with your frontend URL
+  origin: 'http://localhost:3001', // replace with your frontend URL
   credentials: true, // allow cookies to be included
 }));
 
@@ -33,6 +34,7 @@ app.use("/api/v1/blog", blogRouters)
 app.use("/api/v1/announcement", announcementRouters)
 app.use("/api/v1/profile", profileRouters)
 app.use("/api/v1/mentor", mentorDetailRouters)
+app.use("/api/v1/explore",protectRoute, exploreRouters)
 
 app.listen(ENV_VARS.PORT, () => {
   console.log(`Example app listening on port ${ENV_VARS.PORT}`)

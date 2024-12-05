@@ -9,7 +9,6 @@ const page = () => {
     const router = useRouter()
 
     const onChooseSpecializationsHandler = (specialization) =>{
-        console.log(specialization)
         fetchSkills({specialization})
         router.push("/skill")
     }

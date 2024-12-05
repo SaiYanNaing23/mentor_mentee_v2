@@ -1,12 +1,56 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import style from '@/components/dashboardpageUI/dashboard.module.css'
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from '@nextui-org/react'
 // import axios from 'axios';
 import SideNavBar from '../navbar/sideNavBar'
+import { validateToken } from '@/utils/helper'
+import inputStyle from '@/components/loginpageUI/login.module.css';
+import moment from 'moment';
+import { useAnnouncementStore } from '@/store/announcement'
+import { useAuthStore } from '@/store/auth'
+
+
 
 const Sidenav = () => {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
+  const [ announcementTitle, setAnnouncementTitle ] = useState('')
+  const [ announcementContent, setAnnouncementContent ] = useState('')
+  const { fetchAnnouncement, announcement, createAnnouncement, deleteAnnouncement } =  useAnnouncementStore()
+  const { authCheck, user } = useAuthStore()
+
+  const onCreateAnnouncementHandler = () => {
+    try {
+      let credentials = {
+        title : announcementTitle,
+        content : announcementContent,
+        date : new Date()
+      }
+      createAnnouncement(credentials).then((_)=> {
+        fetchAnnouncement()
+      })
+      onOpenChange(false)
+      setAnnouncementTitle('')
+      setAnnouncementContent('')
+      
+    } catch (error) {
+      console.error(error)
+      onOpenChange(false)
+      setAnnouncementTitle('')
+      setAnnouncementContent('')
+    }
+  }
+
+  const onDeleteAnnouncementHandler = (id) => {
+    deleteAnnouncement({ id }).then((_) => {
+      fetchAnnouncement()
+    })
+  }
+  useEffect(()=>{
+    validateToken()
+    authCheck()
+    fetchAnnouncement()
+  }, [])
   return (
     <div className={style.maindiv}>
       {/* Side Nav bar */}
@@ -28,10 +72,10 @@ const Sidenav = () => {
         </div>
 
         {/* Blogs Div */}
-        <div className='py-[96px]' >
+        {/* <div className='py-[96px]' >
           <h1 className={style.title}>Blogs</h1>
           <div className={style.blogsdiv}>
-            <div className={style.blog} onClick={onOpen}  >
+            <div className={style.blog}>
               <img src="../../assets/icons/profile.svg" alt="Profile icon" width="30px"/><br/>
               <h3 className={style.blogtitle}>Blog One Title</h3><br/>
               <img src="../../assets/images/testing.svg" alt="Testing Image" width="400px"/>
@@ -47,90 +91,87 @@ const Sidenav = () => {
               <img src="../../assets/images/testing.svg" alt="Testing Image" width="400px"/>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Announcement Div */}
         <div className='pb-[120px]' >
             <h1 className={style.title}>Announcement</h1>
-          <div className={style.announcediv}>
-            <div className={style.infodiv}>
-              {/* Announcement 1 */}
-              <div className={style.left}>
-                <h1 className={style.announcetitle}>New Webinar Alert !</h1><br/>
-                <p className={style.announcetext}>There is a webinar about "Fundamentals of Information Systems" that will be held at Lobby Room 1 by speaker Kelvin </p>
+            {/* admin@gmail.com */}
+            {user && user.email && user.email === 'admin@gmail.com' && (
+              <div className='flex justify-end mb-5 ' >
+                <Button onClick={onOpen} className='text-[16px] !py-8 px-5 ' color='primary' >
+                  Create Announcement
+                </Button>
               </div>
-              <div className={style.right}>
-                <p className={style.announcedate}>Sep 29</p>
+            )}
+            <div className='border border-[#00206B] rounded-3xl py-11 px-5 ' >
+              <div className=' p-[20px] min-h-[360px] overflow-y-scroll no-scrollbar' >
+                { announcement.length ? (
+                  <div>
+                     { announcement.map((announcement)=> (
+                        <div className='flex mb-[20px] justify-between border-b-1 border-[#6b6b6c] pb-8 ' key={announcement._id} >
+                          <div className='w-[75%]' >
+                            <h1 className={style.announcetitle}> {announcement.title} </h1><br/>
+                            <p className={style.announcetext}> {announcement.content} </p>
+                          </div>
+                          <div className='w-[25%] text-right pr-5' >
+                            {user && user.email && user.email === 'admin@gmail.com' && (
+                              <Button onClick={() => onDeleteAnnouncementHandler(announcement._id)} className='text-[16px] !py-5 px-5 mb-3 ' >
+                                Delete
+                              </Button>
+                            )}
+                            <p className={style.announcedate}> {moment(announcement.date).format('MMM Do')} </p>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+                ) : (
+                  <h1 className='flex items-center justify-center text-[18px] font-bold ' >
+                    Currently there's no announcement!
+                  </h1>
+                )}
+               
               </div>
             </div>
-            <div className={style.line}></div>
-            
-            {/* Announcement 2 */}
-            <div className={style.infodiv}>
-              <div className={style.left}>
-                <h1 className={style.announcetitle}>Workshop Time !</h1><br/>
-                <p className={style.announcetext}>"Make the World Green" workshop will be held to know more about environmental issues and how to increase the recycling rate </p>
-              </div>
-              <div className={style.right}>
-                <p className={style.announcedate}>Oct 10</p>
-              </div>
-            </div>
-            <div className={style.line}></div>
-
-            {/* Announcement 3 */}
-            <div className={style.infodiv}>
-              <div className={style.left}>
-                <h1 className={style.announcetitle}>New Mentor Orientation</h1><br/>
-                <p className={style.announcetext}>Let's welcome our New Mentor <b>Kile Riley</b> and have some activities with our community</p>
-              </div>
-              <div className={style.right}>
-                <p className={style.announcedate}>Oct 15</p>
-              </div>
-            </div>
-            <div className={style.line}></div>
-          </div>
         </div>
       </div>
 
       
 
     {/* Models */}
-    <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+    <Modal 
+     isOpen={isOpen} 
+     onOpenChange={onOpenChange}
+    >
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1 text-[18px] ">Create Announcement</ModalHeader>
               <ModalBody>
-                <p> 
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Magna exercitation reprehenderit magna aute tempor cupidatat consequat elit
-                  dolor adipisicing. Mollit dolor eiusmod sunt ex incididunt cillum quis. 
-                  Velit duis sit officia eiusmod Lorem aliqua enim laboris do dolor eiusmod. 
-                  Et mollit incididunt nisi consectetur esse laborum eiusmod pariatur 
-                  proident Lorem eiusmod et. Culpa deserunt nostrud ad veniam.
-                </p>
+                <label>Title</label>
+                <input type="text" className={inputStyle.input} style={{width: "100%"}} value={announcementTitle} onChange={(e)=> setAnnouncementTitle(e.target.value)} />
+                <label>Text Area</label>
+                <textarea 
+                  id="bio" 
+                  rows="5" 
+                  className={style.input} 
+                  style={{ width: '100%', height: '150px', border: '1px solid #000' }} 
+                  value={announcementContent} 
+                  onChange={(e) => setAnnouncementContent(e.target.value)} ></textarea>
               </ModalBody>
               <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
+                <Button color="danger" className='text-[16px] !py-8 px-5 ' variant="light" onPress={onClose}>
                   Close
                 </Button>
-                <Button color="primary" onPress={onClose}>
+                <Button color="primary" className='text-[16px] !py-8 px-5 ' onPress={onCreateAnnouncementHandler}>
                   Action
                 </Button>
               </ModalFooter>
             </>
           )}
         </ModalContent>
-            </Modal>
+    </Modal>
+
     </div>
   )
 }

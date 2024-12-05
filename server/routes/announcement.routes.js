@@ -9,7 +9,7 @@ router.post('/create', createAnc)
 
 router.post('/delete', deleteAnc)
 
-router.post('/show', showAnc)
+router.get('/get-accouncement', showAnc)
 
 router.post('/edit', editAnc)
 

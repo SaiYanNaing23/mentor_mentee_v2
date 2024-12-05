@@ -16,13 +16,18 @@ const Page = () => {
         scope,
     }
     const token = Cookies.get('token');
-    await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/mentor/google-handle-callback`,credentials, {
+    const mentor_id = Cookies.get('mentor_id');
+    axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/mentor/google-handle-callback`,credentials, {
         headers: {
             Authorization: `Bearer ${token}`,
             withCredentials: true,
         },
     })
-    router.push('/mentor/detail/672c2781e2602782ab5097b4')
+    if(mentor_id){
+      router.push(`/mentor/detail/${mentor_id}`)
+      Cookies.remove('mentor_id')
+      // window.location.reload();
+    }
   }
 
   useEffect(() => {
@@ -38,11 +43,6 @@ const Page = () => {
     }
 
     googleCallBack(code, scope)
-    
-
-    console.log('Redirect page:', pathname);
-    console.log('Code:', code);
-    console.log('Scope:', scope);
   }, [pathname, searchParams]);
 
   return <div>Redirecting ...</div>;

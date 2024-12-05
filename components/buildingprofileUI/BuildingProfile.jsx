@@ -44,16 +44,15 @@ const Buildingprofile = () => {
 
     useEffect(()=> {
         authCheck()
-        // fetchFieldsData()
-        // setField(fields)
       },[authCheck])
 
     useEffect(()=>{
         if(!user){
             router.push("/login/signup")
         }
-        fetchFieldsData()
-        setField(useMatchStore.getState().fields);
+        fetchFieldsData().then(()=> {
+            setField(useMatchStore.getState().fields);
+        })
     },[user])
 
     const onSubmitBuildProfile = (e) => {

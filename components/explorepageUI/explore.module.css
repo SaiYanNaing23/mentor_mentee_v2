@@ -32,8 +32,8 @@
 /* Mentors */
 .titlelist{
     display: flex;
-    justify-content: center;
-    gap: 100px;
+    justify-content: space-evenly;
+    gap: 24px;
 }
 .title{
     cursor: pointer;

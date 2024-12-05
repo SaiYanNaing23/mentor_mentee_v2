@@ -1,22 +1,31 @@
-import React from 'react'
+'use client'
+import React, { useEffect } from 'react'
 import style from '@/components/userprofilepageUI/userprofile.module.css'
 import SideNavBar from '../navbar/sideNavBar'
+import { validateToken } from '@/utils/helper'
+import { useAuthStore } from '@/store/auth'
 const Userprofile = () => {
+    const { user, authCheck } = useAuthStore()
+    useEffect(()=>{
+        validateToken()
+        authCheck()
+    },[])
   return (
-    <div class={style.maindiv}>
+    <div className={style.maindiv}>
         {/* Side Nav bar */}
         <SideNavBar/>
 
         {/* User Profile Page */}
-        <div class={style.contentdiv}>
+        { user && (
+        <div className={style.contentdiv}>
             {/* Profile div */}
-            <div class={style.profilediv}>
-                <div class={style.left}>
+            <div className={style.profilediv}>
+                <div className={style.left}>
                     <img src="../../assets/images/femaleprofile.svg" alt="User Profile" className={style.profileimg}/>
                 </div>
-                <div class={style.right}>
-                    <p className={style.name}>Riley Young</p>
-                    <p className={style.jobtitle}>Web Frontend Developer</p>
+                <div className={style.right}>
+                    <p className={style.name}> { user.username } </p>
+                    <p className={style.jobtitle}> { user.job_title } </p>
                 </div>
             </div>
 
@@ -26,19 +35,24 @@ const Userprofile = () => {
             <div className={style.infodiv}>
                 <div className={style.bio}>
                     <h1 className={style.title}>Bio</h1>
-                    <p className={style.text}>A passionate youth who is currently learning Web Development and willing to apply my skills. <br/>Working as a Programming Instructor who teaches coding to young learners.</p>
+                    <p className={style.text}> { user.bio }</p>
                 </div>
-                <div className={style.social}>
-                    <h1 className={style.title}>Add social accounts</h1>
-                </div>
-                <div className={style.background}>
-                    <h1 className={style.title}>Background</h1>
-                    <h2 className={style.smalltitle}>Educational Background</h2>
-                    <p></p>
-                    <h2 className={style.smalltitle}>Job Experience</h2>
-                </div>
+
+                <h1 className={style.title}>Skills</h1>
+                <ul>
+                    { user.skills && user.skills.map((skill)=> (
+                        <li className='text-[18px] mb-6 ' key={skill} >
+                            {"=>"} { skill }
+                        </li>
+                    )) }
+                </ul>
+
+                <h1 className='text-[22px] font-bold mb-5 mt-16 ' >Profiency Level</h1>
+                <p className='my-5 text-[18px] ' > { user.experience }</p>
+            
             </div>
         </div>
+        )}
 
     </div>
   )

@@ -6,7 +6,6 @@ const Testimonials = () => {
     const [toggle, setToggle ] = useState(1)
     const toggleTab = (index) =>{
         setToggle(index)
-        console.log(toggle)
     }
     return (
     <div className='mt-[50px] mb-[50px]'>

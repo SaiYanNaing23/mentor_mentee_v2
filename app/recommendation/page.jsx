@@ -3,6 +3,7 @@ import { useAuthStore } from '@/store/auth';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { Button } from '@nextui-org/react';
+import Link from 'next/link';
 
 const Page = () => {
   const [mentors, setMentors] = useState([]);
@@ -12,7 +13,6 @@ const Page = () => {
   useEffect(() => {
     authCheck().then(() => {
       const userFromStore = useAuthStore.getState().user.matchedWith;
-      console.log(userFromStore);
       setMentors(userFromStore || []);
     });
   }, [authCheck]);
@@ -22,15 +22,18 @@ const Page = () => {
   }
 
   return (
-    <div className="h-screen flex items-center justify-center">
+    <div className="h-screen flex items-center justify-center relative flex-col ">
+      <h1 className='-mt-[80px] mb-[70px] text-[24px] font-bold' >
+        Recommended Mentors 
+      </h1>
       <div>
         <div className='grid grid-cols-3 gap-12 ' >
           {/* Render mentors */}
           {mentors.length > 0 ? (
             mentors.map((mentor) => (
               <div key={mentor._id} className="bg-white w-[300px] mb-5 rounded-xl">
-                <div className='p-6 text-center border-b h-[70px] ' >
-                  image
+                <div className='p-6 text-center border-b flex justify-center ' >
+                  <img src="/assets/images/profile.svg" alt="profile" width={180} height={180} />
                 </div>
                 <div className='p-6' >
                   <h1 className='mb-3' >
@@ -60,6 +63,18 @@ const Page = () => {
           )}
         </div>
       </div>
+      <div className='absolute bottom-20 right-20 ' >
+        <Link href='/' >
+          <Button 
+            color="secondary"
+            size="lg"
+            className="!text-[18px] !py-[25px] !px-[15px]"
+            
+          >
+            Go to Dashboard
+          </Button>
+        </Link>
+        </div>
     </div>
   );
 };

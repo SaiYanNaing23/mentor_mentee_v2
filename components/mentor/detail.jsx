@@ -7,6 +7,10 @@ import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDis
 import { useAuthStore } from '@/store/auth';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import Cookies from "js-cookie";
+import moment from "moment";
+import { toast } from 'sonner';
+import Link from 'next/link';
 
 
 const detail = () => {
@@ -15,19 +19,22 @@ const detail = () => {
     const [ confirm, setConfirm] = useState(false)
     const [ isUpdating, setIsUpdating ] = useState(false)
     const [ schedulesForMentee, setSchedulesForMentee ] = useState([])
+    const [ isBooking, setIsBooking ] = useState(false)
     const { authCheck, user } = useAuthStore(); 
     const router = useRouter()
+    const token = Cookies.get("token");
+    const alreadyChosen = 'You have booked a session with this mentor.';
 
     const generateMeetingSchedule = (numOfDays = 1) => {
         const schedule = [];
         
         const timeSlots = [
+          { start: 1, end: 2 },
+          { start: 3, end: 4 },
+          { start: 5, end: 6 },
+          { start: 7, end: 8 },
           { start: 9, end: 10 },
           { start: 11, end: 12 },
-          { start: 13, end: 14 },
-          { start: 15, end: 16 },
-          { start: 17, end: 18 },
-          { start: 19, end: 20 },
         ];
         
         for (let i = 0; i < numOfDays; i++) {
@@ -57,11 +64,6 @@ const detail = () => {
     useEffect(() => {
         authCheck()
         generateMeetingSchedule(2)
-        // .then(()=> {
-        //     if(!user){
-        //         router.push('/login')
-        //     }
-        // })
     }, [authCheck]);
     
     const handleCheckboxChange = (e) => {
@@ -105,10 +107,6 @@ const detail = () => {
 
     const [selectedSchedule, setSelectedSchedule] = useState([]);
 
-    // const handleHourClick = (schedule) => {
-    //   setSelectedSchedule(schedule);
-    // };
-
     const handleHourClick = (schedule) => {
         if (selectedSchedule.some((s) => s.startDate === schedule.startDate)) {
           // If already selected, remove it
@@ -121,20 +119,54 @@ const detail = () => {
         }
       };
 
-      console.log("selectedSchedule", selectedSchedule)
-
-      const onBookingHandler = () => {
-
-      }
-
     const onLoginGoogleHandler = async () => {
-        
         try {
-            const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/mentor/login-auth`)
+            Cookies.set('mentor_id', mentors._id )
+            const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/mentor/login-auth`,{
+                headers: { 
+                    Authorization: `Bearer ${token}` 
+                },
+            })
             console.log(data)
             router.push(data.google_auth_url)
         } catch (error) {
             console.log(error)
+        }
+    }
+
+    const onBookingHandler = async () => {
+        try {
+            setIsBooking(true)
+            let credentials = {
+                summary: "Team Meeting",
+                description: "Discussing project updates and timelines.",
+                startTime: selectedSchedule[0].startDate,
+                endTime: selectedSchedule[0].endDate,
+                attendees: ["admin@gmail.com", user.email],
+                user_id: user._id,
+                mentor_id : mentors._id,
+            }
+            const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/mentor/generate-meeting-link`, credentials, {
+                headers: { 
+                    Authorization: `Bearer ${token}` 
+                },
+            })
+            if(data.success){
+                let variables = {
+                    id : mentors._id
+                }
+                fetchMentorDetails(variables)
+            }
+            setIsBooking(false)
+            toast.success('Success', {
+                description: "You have successfully booked with these mentor."
+            })
+        } catch (error) {
+            setIsBooking(false)
+            console.log(error)
+            toast.error('Error', {
+                description: error.response.data.message || error.message
+            })
         }
     }
 
@@ -150,7 +182,7 @@ const detail = () => {
 
             <div className='w-full p-28 ' >
                 <div className='flex gap-10 items-center border-b-3 pb-24  '  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 24 24"><path fill="gray" d="M12 19.2c-2.5 0-4.71-1.28-6-3.2c.03-2 4-3.1 6-3.1s5.97 1.1 6 3.1a7.23 7.23 0 0 1-6 3.2M12 5a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-3A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10c0-5.53-4.5-10-10-10"/></svg>
+                    <img src="../../assets/images/profile.svg" alt="profile" width={150} height={150} className='rounded-full ' />
                     <p className='flex flex-col text-[32px] font-bold ' >
                         <span className='inline-block mb-5 '  >
                             {mentors.name}
@@ -163,57 +195,99 @@ const detail = () => {
                 </div>
                 <div className='flex justify-between' >
                     <div className='flex flex-col p-8 w-1/2 ' >
+
+                        {/* Description */}
                         <h2 className='text-[24px] font-bold mb-6' >
                             Description
                         </h2>
                         <p className='w-full text-[18px] leading-10  ' >
                             {mentors.bio}
                         </p>
+
+                        {/* Skills */}
+                        <h2 className='text-[24px] font-bold mb-6 mt-10 ' >
+                            Skills
+                        </h2>
+                        <ul className='w-full text-[18px] leading-10 ' >
+                            { mentors && mentors.skills && mentors.skills.map((skill)=> (
+                                <li className='mb-5' key={skill} >
+                                   {"=>"} { skill }
+                                </li>
+                            ))}
+                            
+                        </ul>
+
+                        {/* Company */}
+                        <h2 className='text-[24px] font-bold mb-6 mt-10 ' >
+                            Current Working Company
+                        </h2>
+                        <p className='w-full text-[18px] leading-10' >
+                            { mentors.job_title } at { mentors.company }
+                        </p>
+
                     </div>
                     {/* Card */}
                     {mentors.agreedMenteeIds?.includes(user?._id) ? (
-                        <div className="border-3 rounded-2xl p-12 -mt-20 mr-10 min-w-[35%] bg-white">
-                        <h3 className="text-[18px] font-bold text-center">Choose Schedules</h3>
-                        {schedulesForMentee.length > 0 ? (
-                          <div className='grid grid-cols-2 mt-9 gap-3 ' >
-                            {schedulesForMentee.map((schedule, index) => {
-                            const startHourUTC = new Date(schedule.startDate).getUTCHours();
-                            const isSelected = selectedSchedule.some(
-                                (s) => s.startDate === schedule.startDate
-                            );
-
-                            return (
-                                <Button
-                                key={index}
-                                color={isSelected ? "success" : "primary"}
-                                className="!text-[18px] !py-[20px] !px-[25px] mr-5 mb-8"
-                                isDisabled={selectedSchedule.length > 0 && !isSelected}
-                                onClick={() => handleHourClick(schedule)}
-                                >
-                                {startHourUTC}:00
-                                </Button>
-                            );
-                            })}
-                          </div>
-                          
-                        ) : (
-                          <div>Wait to Generate Schedule</div>
-                        )}
-                        <div className='flex justify-center mt-10 ' >
-                            <Button color='warning' onClick={onLoginGoogleHandler} className='!text-[18px] !py-[20px] !px-[25px] mr-5 mb-8  ' >
-                                Login To Google
-                            </Button>
-                            <Button
-                                color='secondary'
-                                className="!text-[18px] !py-[20px] !px-[25px] mr-5 mb-8  "
-                                onClick={onBookingHandler}
-                            >
-                                Book
-                            </Button>
+                        <div>
+                            {mentors.bookedMenteeIds?.includes(user?._id) ? (
+                                <div className="border-3 rounded-2xl p-12 -mt-20 mr-10 min-w-[35%] bg-white">
+                                    <h3 className="text-[18px] font-bold text-center" >Already Chosen</h3>
+                                    <p className='mt-5 text-[18px] text-center ' >{alreadyChosen}</p>
+                                    <div className='flex justify-center mt-10' >
+                                        <Link href='/matches' >
+                                            <Button className="!text-[18px] !py-[20px] !px-[25px] mr-5 mb-8" color='primary' >
+                                                View Your Booking
+                                            </Button>
+                                        </Link>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="border-3 rounded-2xl p-12 -mt-20 mr-10 min-w-[35%] bg-white">
+                                <h3 className="text-[18px] font-bold text-center">Choose Schedules</h3>
+                                {schedulesForMentee.length > 0 ? (
+                                <div className='grid grid-cols-2 mt-9 gap-3 ' >
+                                    {schedulesForMentee.map((schedule, index) => {
+                                    const isSelected = selectedSchedule.some(
+                                        (s) => s.startDate === schedule.startDate
+                                    );
+    
+                                    return (
+                                        <Button
+                                        key={index}
+                                        color={isSelected ? "success" : "primary"}
+                                        className="!text-[18px] !py-[20px] !px-[25px] mr-5 mb-8"
+                                        isDisabled={selectedSchedule.length > 0 && !isSelected}
+                                        onClick={() => handleHourClick(schedule)}
+                                        >
+                                            Tomorrow {moment(schedule.startDate).format("h:mm A")}
+                                        </Button>
+                                    );
+                                    })}
+                                </div>
+                                
+                                ) : (
+                                <div>Wait to Generate Schedule</div>
+                                )}
+                                <div className='flex justify-center mt-10 ' >
+                                    <Button color='warning' onClick={onLoginGoogleHandler} className='!text-[18px] !py-[20px] !px-[25px] mr-5 mb-8  ' >
+                                        Login To Google
+                                    </Button>
+                                    <Button
+                                        color='secondary'
+                                        className="!text-[18px] !py-[20px] !px-[25px] mr-5 mb-8  "
+                                        onClick={onBookingHandler}
+                                        isDisabled={!selectedSchedule.length}
+                                        isLoading={isBooking}
+                                    >
+                                        Book
+                                    </Button>
+                                </div>
+                            </div>
+                            ) }
                         </div>
-                      </div>
+                        
                     ) : 
-                    (<div className='border-3 rounded-2xl p-12 -mt-20  mr-10 min-w-[35%] bg-white ' >
+                    (<div className='border-3 rounded-2xl p-12 -mt-20  mr-10 min-w-[35%] bg-white !h-[30%] ' >
                         <h3 className='text-[18px] font-bold text-center ' >Rules & Regulations </h3>
                         <ul className='text-[16px] leading-8 my-8 ' >
                             <li>

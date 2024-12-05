@@ -98,21 +98,21 @@
 }
 
 /* Announcement Div */
-.announcediv{
-    /* border: 2px solid #00206B; */
-    /* border-radius: 10px; */
+/* .announcediv{
+    border: 2px solid #00206B; 
+    border-radius: 10px; 
     padding: 20px;
     max-height: 360px;
     overflow-y: auto;
-}
-.announcediv .infodiv{
+} */
+/* .announcediv .infodiv{
     display: flex; 
     justify-content: space-between;
     margin-bottom: 20px;
-}
-.infodiv .left{
+} */
+/* .infodiv .left{
     width: 75%;
-}
+} */
 .announcetitle, .announcedate{
     font-size: 20px;
     font-weight: 800;

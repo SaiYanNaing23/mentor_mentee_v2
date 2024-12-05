@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import style from '@/components/loginpageUI/login.module.css';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/auth';
+import Link from 'next/link';
 
 const Login = () => {
   const { login, user } = useAuthStore();
@@ -31,7 +32,7 @@ const Login = () => {
     const response = await login({ email, password });
     
     if (response?.success) {
-      localStorage.setItem('authToken', response?.token); 
+      // localStorage.setItem('authToken', response?.token); 
       router.push('/'); 
     } else {
       setError(response?.message || 'Invalid credentials. Please try again.');
@@ -77,7 +78,9 @@ const Login = () => {
           </form>
           <div className={style.links}>
             <a href="#">Forgot password?</a>
-            <a href="#">Don't have an account? <br />Sign Up</a>
+            <Link href='/login/signup'>
+              Don't have an account? <br />Sign Up
+            </Link>
           </div>
         </div>
       </div>

@@ -1,78 +1,92 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import style from '@/components/mymatchespageUI/mymatches.module.css'
-import axios from 'axios';
 import SideNavBar from '../navbar/sideNavBar'
+import { useAuthStore } from '@/store/auth';
+import moment from "moment";
+import Link from 'next/link';
+import { validateToken } from '@/utils/helper';
+
+
+
 
 const Mymatches = () => {
-    const [mentorName, setMentorName ] = useState('');
-    const [day, setDay ] = useState('');
-    useEffect(()=>{
-        getMentorData()
-        getDate()
-    },[])
-    
-    const getMentorData = async ()=>{
-    const response = await axios.get('http://127.0.0.1:5000/api/mentor')
-    console.log(response.data.name)
-    setMentorName(response.data.name)
-    }
+    const { authCheck } = useAuthStore()
+    const [ userSchedules, setUserSchedules ] = useState([]);
+    const [ myMatches, setMyMatches ] = useState([]);
 
-    const getDate = async ()=>{
-        const response = await axios.get('http://127.0.0.1:5000/api/mentor')
-        console.log(response.data.date)
-        setDay(response.data.date)
-    }
+    useEffect(()=>{
+        validateToken()
+        authCheck().then(()=> {
+            const schedule = useAuthStore.getState().user.mySchedules;
+            const myMatches = useAuthStore.getState().user.myMatches;
+            setUserSchedules(schedule || []);
+            setMyMatches(myMatches || []);
+        })
+    },[])
 
   return (
-    <div class={style.maindiv}>
+    <div className={style.maindiv}>
         {/* Side Nav bar */}
         <SideNavBar/>
 
         {/* My Matches Page */}
-        <div class={style.contentdiv}>
+        <div className={style.contentdiv}>
             {/* My Schedule */}
-            <div class={style.schedule}>
+            <div className={style.schedule}>
                 <h1 className={style.title}>My Schedule</h1>
-                <div className={style.text}>
-                    <p>You have a session with <b>{mentorName}</b></p><br/>
-                    <p>Meeting will start from <b>9:00 AM to 10:00 AM</b> on <b>{day}</b></p><br/>
-                    <a href="#"><b>Zoom meeting link</b></a><br/><br/>
-                    <p>This link will be only available when it reaches to the given session time</p>
-                </div>
-                <div className={style.text}>
-                    <p>You have a session with <b>Mentor David John Morles</b></p><br/>
-                    <p>Meeeting will start from <b>3:45 PM to 5:00 PM</b> on <b>Dec 12, 2024</b></p><br/>
-                    <a href="#"><b>Zoom meeting link</b></a><br/><br/>
-                    <p>This link will be only available when it reaches to the given session time</p>
-                </div>
+
+                {userSchedules.length > 0 ? (
+                    userSchedules.map((schedule) => (
+                        <div className={style.text} key={schedule.mentor_id}>
+                            <p>You have a session with <b>{schedule.mentor_name}</b></p><br/>
+                            <p className='mb-5' >
+                                Meeting will start from 
+                                <b> {moment(schedule.start_time).format("h:mm A")} to {moment(schedule.end_time).format("h:mm A")} </b> 
+                                on <b>{moment(schedule.start_time).format("MMMM Do, YYYY")}</b>
+                            </p>
+                            <div className='flex gap-5 mb-8 mt-3' >
+                                <p>
+                                    <b>Google meeting link is </b>
+                                </p>
+                                <Link href={moment().isBetween(schedule.start_time, schedule.end_time) ? schedule.meeting_link : '#'} className={moment().isBetween(schedule.start_time, schedule.end_time) ? '' : 'text-gray-500 cursor-not-allowed'} >
+                                    {schedule.meeting_link}
+                                </Link>
+                            </div>
+                            <p>This link will be only available when it reaches the given session time</p>
+                        </div>
+                    ))
+                ) : (
+                    <div>
+                        Loading my schedules
+                    </div>
+                )}
+                
+                
             </div>
 
             {/* My Matches */}
             <div className='mb-[96px]' >
                 <h1 className={style.title}>My Matches</h1>
-                <div class={style.matches}>
+                <div className={style.matches}>
                     {/* Mentor 1 */}
-                    <div className={style.mentor}>
-                        <img src="../../assets/images/profile.svg" alt="profile picture" className={style.image}></img>
-                        <h2 className={style.name}>David Johnson</h2>
-                        <p className={style.jobtitle}>Web Frontend Developer</p>
-                        <button className={style.button}>View Profile</button>
-                    </div>
-                    {/* Mentor 2 */}
-                    <div className={style.mentor}>
-                        <img src="../../assets/images/profile.svg" alt="profile picture" className={style.image}></img>
-                        <h2 className={style.name}>Ryan Paul Kim</h2>
-                        <p className={style.jobtitle}>Operation Manager</p>
-                        <button className={style.button}>View Profile</button>
-                    </div>
-                    {/* Mentor 3 */}
-                    <div className={style.mentor}>
-                        <img src="../../assets/images/profile.svg" alt="profile picture" className={style.image}></img>
-                        <h2 className={style.name}>Hazel Ley</h2>
-                        <p className={style.jobtitle}>Data Analyst</p>
-                        <button className={style.button}>View Profile</button>
-                    </div>
+                    { myMatches.length > 0 ? (
+                        myMatches.map((mentor) => (
+                            <div key={mentor._id} className={style.mentor}>
+                                <img src="../../assets/images/profile.svg" alt="profile picture" className={style.image}></img>
+                                <h2 className={style.name}>{mentor.name}</h2>
+                                <p className={style.jobtitle}>{mentor.job_title}</p>
+                                <Link href={`/mentor/detail/${mentor._id}`} >
+                                    <button className={style.button}>View Profile</button>
+                                </Link>
+                            </div>
+                        ))
+                    ) : (
+                        <div>
+                            Loading Mentor data ...
+                        </div>
+                    )}
+                    
                 </div>
 
             </div>

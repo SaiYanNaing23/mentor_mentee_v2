@@ -1,17 +1,20 @@
 import { Mentor } from "../models/mentor.model.js";
 import { google } from 'googleapis';
 import fs from 'fs';
+import { User } from "../models/user.model.js";
 
-// // Load credentials
-// const credentials = JSON.parse(fs.readFileSync('./creditentials.json'));
-// const { client_id, client_secret, redirect_uris } = credentials.web;
+// Load credentials
+let googleCredentials = {"web":{"client_id":"438053357948-r2h9bbh058ur9ka0or4c91eaqa59ooag.apps.googleusercontent.com","project_id":"mentor-and-mentee-matching","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"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","redirect_uris":["http://localhost:3001/redirect","http://localhost:3000/redirect"],"javascript_origins":["http://localhost:3001","http://localhost:3000"]}}
 
-// // Set up OAuth2 client
-// const oAuth2Client = new google.auth.OAuth2(
-//     client_id,
-//     client_secret,
-//     redirect_uris[0]
-// );
+const credentials = googleCredentials;
+const { client_id, client_secret, redirect_uris } = credentials.web;
+
+// Set up OAuth2 client
+const oAuth2Client = new google.auth.OAuth2(
+    client_id,
+    client_secret,
+    redirect_uris[0]
+);
 
 // Generate auth URL for Google login
 export const loginAuth = async (req, res) => {
@@ -31,7 +34,6 @@ export const loginAuth = async (req, res) => {
 export const handleGoogleCallback = async (req, res) => {
     try {
         const { code } = req.body; // Get the authorization code from the request body
-        console.log("Authorization code:", code);
 
         // Exchange the authorization code for tokens
         const { tokens } = await oAuth2Client.getToken(code);
@@ -52,9 +54,10 @@ export const handleGoogleCallback = async (req, res) => {
 // Generate Google Meet link by creating an event
 export const generateMeetingLink = async (req, res) => {
     try {
-        const { summary, description, startTime, endTime, attendees } = req.body;
+        const { summary, description, startTime, endTime, attendees, user_id, mentor_id } = req.body;
         // Load credentials
-        const credentials = JSON.parse(fs.readFileSync('./creditentials.json'));
+        // const credentials = JSON.parse(fs.readFileSync('./creditentials.json'));
+        const credentials = googleCredentials;
         const { client_id, client_secret, redirect_uris } = credentials.web;
 
         // Set up OAuth2 client
@@ -92,13 +95,44 @@ export const generateMeetingLink = async (req, res) => {
             conferenceDataVersion: 1, // Required for creating Google Meet links
         });
 
+        const mentor = await Mentor.findOne({ _id : mentor_id});
+        if(!mentor){
+            res.status(404).json({ message : "Mentor not Found", success : false });
+        }
+
+        const user = await User.findOneAndUpdate(
+            { _id: user_id }, 
+            {
+                $push: {
+                    mySchedules: {
+                        mentor_id: mentor._id.toString(),
+                        mentor_name: mentor.name,
+                        start_time: startTime,
+                        end_time: endTime,
+                        meeting_link: response.data.hangoutLink
+                    },
+                    myMatches : mentor
+                }
+            },
+            { new: true }
+        );
+
+        await Mentor.findByIdAndUpdate(mentor_id, {
+            $push: {
+                bookedMenteeIds: user_id,
+            },
+        });
+        if(!user){
+            res.status(404).json({ message : "User not Found", success : false });
+        }
+
         res.status(200).json({
             success: true,
             message: 'Event created successfully!',
             meetLink: response.data.hangoutLink,
         });
     } catch (error) {
-        res.status(500).json({ message: "Internal Server Error", success: false });
+        res.status(500).json({ message: error.response?.data || error.message || "Internal Server Error", success: false });
         console.error('Error creating meeting link:', error.response?.data || error.message);
     }
 };

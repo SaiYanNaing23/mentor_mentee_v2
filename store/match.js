@@ -88,7 +88,6 @@ export const useMatchStore = create((set)=> ({
                     withCredentials: true,
                 },
             })
-            console.log("mentor", data)
         } catch (error) {
             console.log(error);
         }
