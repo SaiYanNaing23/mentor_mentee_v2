@@ -32,7 +32,7 @@ app.use("/api/v1/auth", authRouters)
 app.use("/api/v1/match",protectRoute, matchRouters)
 app.use("/api/v1/blog", blogRouters)
 app.use("/api/v1/announcement", announcementRouters)
-app.use("/api/v1/profile", profileRouters)
+app.use("/api/v1/profile", protectRoute, profileRouters)
 app.use("/api/v1/mentor", mentorDetailRouters)
 app.use("/api/v1/explore",protectRoute, exploreRouters)
 

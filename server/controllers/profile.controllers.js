@@ -1,51 +1,61 @@
 import { User } from "../models/user.model.js";
 
-// Show profile 
-export const showProfile = async(req, res) => { 
-    try{
-        const { id } = req.body; 
+export const updateProfileFields = async (req, res) => {
+    try {
+        const { user_id, username, job_title, bio, experience } = req.body;
 
-        const showProfile = await User.findById(id);
-
-        // Failed showing profile
-        if(!showProfile) {
-            return res.status(404).json({message: "No profile to show", success: false});
+        if (!user_id) {
+            return res.status(404).json({ message: "User Id is required", success: false });
         }
 
-        //Successful showing profile
-        res.status(201).json({success: true, 
-            ...showProfile._doc
-        })
-    }
+        const updates = {};
+        if (username) updates.username = username;
+        if (job_title) updates.job_title = job_title;
+        if (bio) updates.bio = bio;
+        if (experience) updates.experience = experience;
 
-    catch(error){
-        console.log(error.message)
-        res.status(500).json({message: 'Internal Server Error', success: false});
-    }
-}
-
-// Updating profile 
-export const editProfile = async(req, res) => {
-    try{
-        const { id } = req.body; 
-        const { name, bio } = req.body;
-
-        const editProfile = await User.findByIdAndUpdate(id, { name, bio }); 
-
-        // Failed updating profile 
-        if(!editProfile) {
-            return res.status(404).json({message: "User not found", success: false});
+        if (Object.keys(updates).length === 0) {
+            return res.status(400).json({ message: "No fields provided to update", success: false });
         }
 
-        // Successful editing profile 
-        res.status(201).json({success: true, 
-            ...editProfile._doc
-        });
+        const updatedUser = await User.findByIdAndUpdate(
+            user_id, 
+            { $set: updates }, 
+            { new: true, runValidators: true }
+        );
 
+        if (!updatedUser) {
+            return res.status(404).json({ message: "User not found", success: false });
+        }
+
+        res.status(200).json({ message: "Profile updated successfully", success: true });
+    } catch (error) {
+        res.status(500).json({ message: "Internal Server Error", success: false });
+        console.error(error);
     }
+};
 
-    catch(error){
-        console.log(error.message)
-        res.status(500).json({message: 'Internal Server Error', success: false});
+export const addSkills = async ( req, res ) => {
+    try {
+        const { user_id , skill } = req.body;
+
+        if(!user_id){
+            res.status(404).json({ message: "User not found", success: false });
+        }
+
+        await User.findByIdAndUpdate(
+            user_id,
+            {
+                $push : {
+                    skills : skill
+                }
+            }
+        )
+
+        res.status(200).json({ message: "Successfully added skills", success: true });
+
+    } catch (error) {
+        res.status(500).json({ message: "Internal Server Error", success: false });
+        console.error(error)
     }
 }

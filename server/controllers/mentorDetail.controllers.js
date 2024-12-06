@@ -4,7 +4,7 @@ import fs from 'fs';
 import { User } from "../models/user.model.js";
 
 // Load credentials
-let googleCredentials = {}
+let googleCredentials = {"web":{"client_id":"438053357948-r2h9bbh058ur9ka0or4c91eaqa59ooag.apps.googleusercontent.com","project_id":"mentor-and-mentee-matching","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"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","redirect_uris":["http://localhost:3001/redirect","http://localhost:3000/redirect"],"javascript_origins":["http://localhost:3001","http://localhost:3000"]}}
 
 const credentials = googleCredentials;
 const { client_id, client_secret, redirect_uris } = credentials.web;
