@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 export const validateToken = () => {
     const token = Cookies.get('token')
     if(!token){
-        window.location.reload();
+        // window.location.reload();
         return;
     }
 }

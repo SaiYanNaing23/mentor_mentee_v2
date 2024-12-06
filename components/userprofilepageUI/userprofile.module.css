@@ -1,6 +1,6 @@
 .maindiv{
     display: flex;
-    top: 60px; 
+    top: 0px; 
     left: 0px;
 }
 /* Side Nav bar */
@@ -15,11 +15,6 @@
 .sidenav:hover{
     box-shadow: 24px 2px 21px -21px rgba(0,0,0,0.1);
 }
-.contentdiv{
-    width: 85%; 
-    padding: 20px;
-    height: 100vh;
-}
 .items{
     list-style-type: none;
 }
@@ -30,14 +25,26 @@
     font-size: 20px;
     font-weight: 700;
 }
+/* Content Div */ 
+.contentdiv{
+    width: 85%; 
+    padding: 20px;
+    height: 700px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none; 
+}
+.contentdiv::-webkit-scrollbar {
+    display: none;
+}
+
 
 /* User Profile */
-
 /* Profile Div */
 .profilediv{
     display: flex; 
     padding: 10px;
-    padding-top: 50px;
+    padding-top: 15px;
     margin-bottom: 20px;
     align-items: center;
     text-align: center;
@@ -65,7 +72,6 @@
 }
 
 /* Info Div */
-
 /* Bio */
 .title{ 
     font-size: 22px; 

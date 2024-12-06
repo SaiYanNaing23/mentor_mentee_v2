@@ -26,7 +26,6 @@ const Page = () => {
     if(mentor_id){
       router.push(`/mentor/detail/${mentor_id}`)
       Cookies.remove('mentor_id')
-      // window.location.reload();
     }
   }
 

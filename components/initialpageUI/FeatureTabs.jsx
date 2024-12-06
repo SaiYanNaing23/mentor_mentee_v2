@@ -12,7 +12,7 @@ export default function TabsDemo() {
       content: (
         <TabContent
           page="Dashboard"
-          text={`Welcome to your Dashboard ! Enjoy a special experience all in one place !\n Stay informed with knowledgeable blogs, explore announcements about upcoming events\n and webinars`}
+          text={`Welcome to your Dashboard ! Enjoy a special experience all in one place !\n Stay informed and explore announcements about upcoming events\n and webinars`}
           imageSrc="../../assets/images/dashboard.svg"
         />
       ),
@@ -29,7 +29,7 @@ export default function TabsDemo() {
       ),
     },
     {
-      title: "Matches",
+      title: "My Matches",
       value: "My Matches",
       content: (
         <TabContent

@@ -21,7 +21,7 @@ const Userprofile = () => {
             {/* Profile div */}
             <div className={style.profilediv}>
                 <div className={style.left}>
-                    <img src="../../assets/images/femaleprofile.svg" alt="User Profile" className={style.profileimg}/>
+                    <img src="../../assets/icons/profilev2.svg" alt="User Profile" className={style.profileimg}/>
                 </div>
                 <div className={style.right}>
                     <p className={style.name}> { user.username } </p>
@@ -32,8 +32,8 @@ const Userprofile = () => {
             <hr className={style.line}/>
 
             {/* Bio and Background */}
-            <div className={style.infodiv}>
-                <div className={style.bio}>
+            <div>
+                <div>
                     <h1 className={style.title}>Bio</h1>
                     <p className={style.text}> { user.bio }</p>
                 </div>
