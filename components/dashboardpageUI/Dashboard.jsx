@@ -143,7 +143,7 @@ const Sidenav = () => {
      isOpen={isOpen} 
      onOpenChange={onOpenChange}
     >
-        <ModalContent>
+        <ModalContent style={{ width: '500px', maxWidth: '800px' }}>
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1 text-[18px] ">Create Announcement</ModalHeader>

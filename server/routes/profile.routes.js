@@ -1,13 +1,12 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import { showProfile, editProfile } from '../controllers/profile.controllers.js';
+import { updateProfileFields, addSkills } from '../controllers/profile.controllers.js';
 
 
 const router = express.Router();
 dotenv.config()
 
-router.post('/show', showProfile)
-
-router.post('/edit', editProfile)
+router.post("/update", updateProfileFields)
+router.post("/add-skill", addSkills)
 
 export default router; 
