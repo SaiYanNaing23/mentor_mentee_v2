@@ -17,9 +17,9 @@ const sideNavBar = () => {
           <li>
             <Link href="/matches">My Matches</Link>
           </li>
-          <li>
+          {/* <li>
             <Message/>
-          </li>
+          </li> */}
           <li>
             <Link href="/about">About</Link>
           </li>

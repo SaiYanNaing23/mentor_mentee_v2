@@ -33,7 +33,7 @@ const Mymatches = () => {
         {/* My Matches Page */}
         <div className={style.contentdiv}>
             {/* My Schedule */}
-            <div className={style.schedule}>
+            {/* <div className={style.schedule}>
                 <h1 className={style.title}>My Schedule</h1>
 
                 {userSchedules.length > 0 ? (
@@ -63,7 +63,7 @@ const Mymatches = () => {
                 )}
                 
                 
-            </div>
+            </div> */}
 
             {/* My Matches */}
             <div className='mb-[96px]' >

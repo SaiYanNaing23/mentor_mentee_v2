@@ -9,6 +9,11 @@ import inputStyle from '@/components/loginpageUI/login.module.css';
 import moment from 'moment';
 import { useAnnouncementStore } from '@/store/announcement'
 import { useAuthStore } from '@/store/auth'
+import scheduleStyle from '@/components/mymatchespageUI/mymatches.module.css'
+import Link from 'next/link'
+import axios from 'axios'
+import Cookies from 'js-cookie'
+
 
 
 
@@ -18,6 +23,8 @@ const Sidenav = () => {
   const [ announcementContent, setAnnouncementContent ] = useState('')
   const { fetchAnnouncement, announcement, createAnnouncement, deleteAnnouncement } =  useAnnouncementStore()
   const { authCheck, user } = useAuthStore()
+
+  const [ userSchedules, setUserSchedules ] = useState([]);
 
   const onCreateAnnouncementHandler = () => {
     try {
@@ -46,9 +53,28 @@ const Sidenav = () => {
       fetchAnnouncement()
     })
   }
+
+  const removeExpiredSchedules = async () => {
+    try {
+      const token = Cookies.get('token');
+      await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/schedule/remove`,{
+        headers: {
+            Authorization: `Bearer ${token}`,
+            withCredentials: true,
+        }
+    }).then((_)=> {
+      authCheck().then(()=> {
+        const schedule = useAuthStore.getState().user.mySchedules;
+        setUserSchedules(schedule || []);
+      })
+    })
+    } catch (error) {
+      console.error(error)
+    }
+  }
   useEffect(()=>{
     validateToken()
-    authCheck()
+    removeExpiredSchedules()
     fetchAnnouncement()
   }, [])
   return (
@@ -71,27 +97,36 @@ const Sidenav = () => {
           </div>
         </div>
 
-        {/* Blogs Div */}
-        {/* <div className='py-[96px]' >
-          <h1 className={style.title}>Blogs</h1>
-          <div className={style.blogsdiv}>
-            <div className={style.blog}>
-              <img src="../../assets/icons/profile.svg" alt="Profile icon" width="30px"/><br/>
-              <h3 className={style.blogtitle}>Blog One Title</h3><br/>
-              <img src="../../assets/images/testing.svg" alt="Testing Image" width="400px"/>
+        {/* My Schedule */}
+        <div className={scheduleStyle.schedule}>
+                <h1 className={scheduleStyle.title}>My Schedule</h1>
+
+                {userSchedules.length > 0 ? (
+                    userSchedules.map((schedule) => (
+                        <div className={scheduleStyle.text} key={schedule.mentor_id}>
+                            <p>You have a session with <b>{schedule.mentor_name}</b></p><br/>
+                            <p className='mb-5' >
+                                Meeting will start from 
+                                <b> {moment(schedule.start_time).format("h:mm A")} to {moment(schedule.end_time).format("h:mm A")} </b> 
+                                on <b>{moment(schedule.start_time).format("MMMM Do, YYYY")}</b>
+                            </p>
+                            <div className='flex gap-5 mb-8 mt-3' >
+                                <p>
+                                    <b>Google meeting link is </b>
+                                </p>
+                                <Link href={moment().isBetween(schedule.start_time, schedule.end_time) ? schedule.meeting_link : '#'} className={moment().isBetween(schedule.start_time, schedule.end_time) ? '' : 'text-gray-500 cursor-not-allowed'} >
+                                    {schedule.meeting_link}
+                                </Link>
+                            </div>
+                            <p>This link will be only available when it reaches the given session time</p>
+                        </div>
+                    ))
+                ) : (
+                    <div>
+                        Loading my schedules
+                    </div>
+                )}
             </div>
-            <div className={style.blog}>
-              <img src="../../assets/icons/profile.svg" alt="Profile icon" width="30px"/><br/>
-              <h3 className={style.blogtitle}>Blog Two Title</h3><br/>
-              <img src="../../assets/images/testing.svg" alt="Testing Image" width="400px"/>
-            </div>
-            <div className={style.blog}>
-              <img src="../../assets/icons/profile.svg" alt="Profile icon" width="30px"/><br/>
-              <h3 className={style.blogtitle}>Blog Three Title</h3><br/>
-              <img src="../../assets/images/testing.svg" alt="Testing Image" width="400px"/>
-            </div>
-          </div>
-        </div> */}
 
         {/* Announcement Div */}
         <div className='pb-[120px]' >

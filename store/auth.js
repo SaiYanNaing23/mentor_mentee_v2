@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { toast } from "sonner";
 
 export const useAuthStore = create((set) => ({
   user: null, 
@@ -39,6 +40,21 @@ export const useAuthStore = create((set) => ({
         success: false,
         message: error.response?.data?.message || "Invalid credentials",
       }; 
+    }
+  },
+
+  // forgot passowrd
+  generatePassword: async (credentials) => {
+    try {
+      await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/auth/generate-password`,credentials);
+      toast.success("Success", {
+        description : "Password is generated successfully."
+      })
+    } catch (error) {
+      console.error("Login error: ", error.response?.data?.message || error.message);
+      toast.error("Error", {
+        description : error.response?.data?.message || error.message || "Something went wrong!"
+      }) 
     }
   },
 

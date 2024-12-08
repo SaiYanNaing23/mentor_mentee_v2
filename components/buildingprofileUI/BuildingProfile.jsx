@@ -4,6 +4,7 @@ import style from '@/components/buildingprofileUI/buildingprofile.module.css'
 import { useAuthStore } from '@/store/auth'
 import { useRouter } from 'next/navigation'
 import { useMatchStore } from '@/store/match'
+import { Button } from '@nextui-org/react'
 
 const Buildingprofile = () => {
     const { user,authCheck } = useAuthStore()
@@ -55,7 +56,9 @@ const Buildingprofile = () => {
         })
     },[user])
 
+    const [ isLoading, setIsLoading ] = useState(false);
     const onSubmitBuildProfile = (e) => {
+        setIsLoading(true)
         e.preventDefault()
         let variables = {
             username: name,
@@ -68,13 +71,14 @@ const Buildingprofile = () => {
         }
         updateBuildingProfile(variables)
         router.push("/choice")
-        setName("")
-        setJob("")
-        setCountry("")
-        setSelectedField("")
-        setCompany("")
-        setLevel("")
-        setBio("")
+        setIsLoading(false);
+        // setName("")
+        // setJob("")
+        // setCountry("")
+        // setSelectedField("")
+        // setCompany("")
+        // setLevel("")
+        // setBio("")
     }
     
     return (
@@ -132,7 +136,7 @@ const Buildingprofile = () => {
                 <textarea id="bio" value={bio} rows="5" className={style.input} style={{ width: '100%', height: '150px' }} required onChange={changeBio}></textarea>
 
                 {/* Button */}
-                <button type="submit" className={style.button}>Build Profile</button>
+                <Button type="submit" className='text-[16px] py-8 px-5 ' color='primary' isLoading={isLoading}  >Build Profile</Button>
             </form>
         </div>
         

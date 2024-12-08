@@ -21,8 +21,6 @@ export async function middleware(req) {
             new TextEncoder().encode(SECRET_KEY)
         );
 
-        console.log('Decoded Token:', payload);
-
         const now = Math.floor(Date.now() / 1000);
         if (payload.exp < now) {
             console.log('Token expired. Redirecting to /login');
