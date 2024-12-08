@@ -6,6 +6,7 @@ import announcementRouters from './routes/announcement.routes.js';
 import profileRouters from './routes/profile.routes.js';
 import mentorDetailRouters from './routes/mentorDetail.routes.js';
 import exploreRouters from './routes/explore.routes.js';
+import scheduleRouters from './routes/schedule.routes.js';
 
 // Connect to the Mongo DB
 import { connectDB } from './configs/db.js'
@@ -35,6 +36,7 @@ app.use("/api/v1/announcement", announcementRouters)
 app.use("/api/v1/profile", protectRoute, profileRouters)
 app.use("/api/v1/mentor", mentorDetailRouters)
 app.use("/api/v1/explore",protectRoute, exploreRouters)
+app.use("/api/v1/schedule",protectRoute, scheduleRouters)
 
 app.listen(ENV_VARS.PORT, () => {
   console.log(`Example app listening on port ${ENV_VARS.PORT}`)

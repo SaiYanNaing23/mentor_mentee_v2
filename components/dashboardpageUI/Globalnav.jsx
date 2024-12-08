@@ -4,6 +4,7 @@ import style from '@/components/dashboardpageUI/globalnav.module.css'
 import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store/auth';
 import Link from 'next/link';
+import { Button } from '@nextui-org/react';
 
 const Globalnav = () => {
   const router = useRouter()
@@ -26,12 +27,14 @@ const Globalnav = () => {
             </Link>
         </div>
         <div className={style.btndiv}>
-            <button onClick={() => router.push('./explore')} className={style.browse}>
-              Browse Mentor
-            </button>
-            <button onClick={handleLogout} className={style.logout}>
+            <Link href='/explore' >
+              <Button color='primary' className='text-[18px] py-8 px-5 '  >
+                Browse Mentor
+              </Button>
+            </Link>
+            <Button className='text-[18px] py-8 px-5 ml-8' onClick={handleLogout}  >
               Logout
-            </button>
+            </Button>
         </div>
     </div>
   )

@@ -4,28 +4,26 @@ import style from '@/components/loginpageUI/login.module.css';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/auth';
 import Link from 'next/link';
+import { Button } from '@nextui-org/react';
 
 const Login = () => {
   const { login, user } = useAuthStore();
   const router = useRouter();
 
-  useEffect(() => {
-    if (user) {
-      router.push('/');
-    }
-  }, [user, router]);
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [ isLoading, setIsLoading ] = useState(false);
 
   const onSubmitLoginHandler = async (e) => {
+    setIsLoading(true)
     e.preventDefault();
 
     // Basic validation
     if (!email.trim() || !password.trim()) {
       setError('Email and password are required.');
+      setIsLoading(false)
       return;
     }
 
@@ -34,8 +32,10 @@ const Login = () => {
     if (response?.success) {
       // localStorage.setItem('authToken', response?.token); 
       router.push('/'); 
+      setIsLoading(false)
     } else {
       setError(response?.message || 'Invalid credentials. Please try again.');
+      setIsLoading(false)
     }
 };
 
@@ -74,10 +74,10 @@ const Login = () => {
               <label htmlFor="showpsw" className={style.showpsw}>Show password</label>
             </div>
             {error && <p className={style.error}>{error}</p>}
-            <button type="submit" className={style.login}>Log In</button>
+            <Button type="submit" color='primary' className='text-center flex justify-center w-[30%] ml-[28%] text-[18px] font-bold py-8 px-5 mt-5' isLoading={isLoading}>Log In</Button>
           </form>
           <div className={style.links}>
-            <a href="#">Forgot password?</a>
+            <Link href="/login/forgot">Forgot password?</Link>
             <Link href='/login/signup'>
               Don't have an account? <br />Sign Up
             </Link>
