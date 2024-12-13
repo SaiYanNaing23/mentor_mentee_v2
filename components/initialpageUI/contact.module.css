@@ -41,3 +41,21 @@
     padding: 10px 20px; 
     cursor: pointer;
 }
+
+@media (max-width: 961px){
+    .text{ 
+        font-size: 30px;
+        line-height: 35px;
+    }
+    .subtext{ 
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 482px){
+    .email{
+        width:50%;
+    }
+}

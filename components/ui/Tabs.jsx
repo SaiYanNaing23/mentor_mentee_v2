@@ -55,7 +55,7 @@ export const Tabs = ({
     />
   )} */}
 
-  <span className="relative block !text-[#00246B] mb-[42px] text-[24px] ">
+  <span className="relative block !text-[#00246B] mb-[42px] text-[24px]  ">
     {tab.title}
   </span>
 </button>
@@ -67,7 +67,7 @@ export const Tabs = ({
       active={active}
       key={active.value}
       hovering={hovering}
-      className={cn("!w-[900px] !h-[500px] ", contentClassName)} />
+      className={cn("!w-[900px] !h-[500px] feature-tab ", contentClassName)} />
     
   </div>
   </>);

@@ -22,5 +22,22 @@ export const useExploreStore = create((set)=> ({
                 description: error.response.data.message || error.message
             })
         }
+    },
+    searchMentors: async ( credentials ) => {
+        try {
+            const token = Cookies.get('token');
+            const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/match/search-mentors`, credentials,{
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    withCredentials: true,
+                }
+            })
+            set({ mentors : data.content })
+        } catch (error) {
+            console.error(error);
+            toast.error("Error", {
+                description: error.response.data.message || error.message
+            })
+        }
     }
 }))

@@ -26,6 +26,7 @@
     font-weight: 800;
     text-align: center;
     margin-bottom: 40px;
+    margin-left: 20px;
 }
 .form{ 
     padding-left: 50px;
@@ -76,4 +77,47 @@
     font-weight: 500;
     display: flex; 
     justify-content: space-between;
+}
+
+@media (max-width: 1281px){
+    .maindiv{
+        width: 80%; 
+    }
+}
+
+@media (max-width: 1005px){
+    .links{
+        padding: 30px 15px;
+        font-weight: 500;
+        font-size: 14px;
+    }
+
+    .input{ 
+        width: 90%;
+    }
+}
+
+@media (max-width: 770px){
+    .links{
+        padding: 30px 0;
+        font-weight: 500;
+        font-size: 14px;
+    }
+
+    .input{ 
+        width: 100%;
+    }
+    .leftdiv{
+        display: none;
+    }
+    .rightdiv{
+        width: 100%;
+    }
+    .form{ 
+        padding-left: 0px;
+    }
+ 
+    .title{ 
+        margin-left: 0px;
+    }
 }

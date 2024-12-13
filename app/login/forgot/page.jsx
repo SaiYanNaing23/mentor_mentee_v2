@@ -40,7 +40,7 @@ const page = () => {
 
   return (
     <div className={bgStyle.wholediv} >
-        <div className='w-[30%] h-[32%] bg-white rounded-3xl p-10' >
+        <div className='w-[60%] lg:w-[30%] h-[320px] bg-white rounded-3xl p-10 forgot' >
             <label className='font-bold mb-5' >Email</label>
             <input type="text" className={bgStyle.input} style={{ width : '100%', display : 'block', marginTop: '14px'}} value={email} onChange={(e) => setEmail(e.target.value)} />
 

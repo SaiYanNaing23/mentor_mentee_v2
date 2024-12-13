@@ -24,6 +24,10 @@ const detail = () => {
     const router = useRouter()
     const token = Cookies.get("token");
     const alreadyChosen = 'You have booked a session with this mentor.';
+    const code = Cookies.get("code");
+    const scope = Cookies.get("scope");
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
     const generateMeetingSchedule = (numOfDays = 1) => {
         const schedule = [];
@@ -146,26 +150,34 @@ const detail = () => {
                 user_id: user._id,
                 mentor_id : mentors._id,
             }
-            const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/mentor/generate-meeting-link`, credentials, {
-                headers: { 
-                    Authorization: `Bearer ${token}` 
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/mentor/google-handle-callback`,{code}, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    withCredentials: true,
                 },
             })
-            if(data.success){
-                let variables = {
-                    id : mentors._id
+            if(res.data.success){
+                const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/mentor/generate-meeting-link`, credentials, {
+                    headers: { 
+                        Authorization: `Bearer ${token}` 
+                    },
+                })
+                if(data.success){
+                    let variables = {
+                        id : mentors._id
+                    }
+                    fetchMentorDetails(variables)
                 }
-                fetchMentorDetails(variables)
+                toast.success('Success', {
+                    description: "You have successfully booked with these mentor."
+                })
             }
             setIsBooking(false)
-            toast.success('Success', {
-                description: "You have successfully booked with these mentor."
-            })
         } catch (error) {
             setIsBooking(false)
             console.log(error)
             toast.error('Error', {
-                description: error.response.data.message || error.message
+                description: error
             })
         }
     }
@@ -178,12 +190,38 @@ const detail = () => {
     return (
         <div className={style.maindiv}>
             {/* Side Nav bar */}
-            <SideNavBar/>
+      <div className=' hidden md:block ' >
+        <SideNavBar/>
+      </div>
+      <div className='md:hidden size-6 cursor-pointer !z-[1000] ml-5' >
+          { isMobileMenuOpen === false ?  (<svg xmlns="http://www.w3.org/2000/svg" onClick={toggleMobileMenu} width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M4 18q-.425 0-.712-.288T3 17t.288-.712T4 16h16q.425 0 .713.288T21 17t-.288.713T20 18zm0-5q-.425 0-.712-.288T3 12t.288-.712T4 11h16q.425 0 .713.288T21 12t-.288.713T20 13zm0-5q-.425 0-.712-.288T3 7t.288-.712T4 6h16q.425 0 .713.288T21 7t-.288.713T20 8z"/></svg>) : (<svg xmlns="http://www.w3.org/2000/svg" onClick={toggleMobileMenu} width="32" height="32" viewBox="0 0 15 15"><path fill="currentColor" fill-rule="evenodd" d="M11.782 4.032a.575.575 0 1 0-.813-.814L7.5 6.687L4.032 3.218a.575.575 0 0 0-.814.814L6.687 7.5l-3.469 3.468a.575.575 0 0 0 .814.814L7.5 8.313l3.469 3.469a.575.575 0 0 0 .813-.814L8.313 7.5z" clip-rule="evenodd"/></svg>)}
+      </div>
 
-            <div className='w-full p-28 ' >
+      {/* Mobile Nav Bar */}
+      {isMobileMenuOpen && (
+        <ul className='absolute flex flex-col gap-y-8 text-center w-full md:hidden z-50 bg-gray-200 top-0 left-0 h-screen px-5 py-[200px] ' >
+            <Link href={'/'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+                Dashboard
+            </Link>
+            <Link  href={'/explore'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+                Explore
+            </Link>
+            <Link href={'/matches'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+                My Matches
+            </Link>
+            <Link href={'/about'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+                About
+            </Link>
+            <Link href={'/profile'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+                Profile
+            </Link>
+        </ul>
+        )}
+
+            <div className='w-full p-28 overflow-scroll ' >
                 <div className='flex gap-10 items-center border-b-3 pb-24  '  >
                     <img src="../../assets/images/profile.svg" alt="profile" width={150} height={150} className='rounded-full ' />
-                    <p className='flex flex-col text-[32px] font-bold ' >
+                    <p className='flex flex-col xl:text-[32px] text-[16px] lg:text-[18px] font-bold ' >
                         <span className='inline-block mb-5 '  >
                             {mentors.name}
                         </span>
@@ -193,22 +231,22 @@ const detail = () => {
                        
                     </p>
                 </div>
-                <div className='flex justify-between' >
-                    <div className='flex flex-col p-8 w-1/2 ' >
+                <div className='flex justify-between mentor-detail-warp ' >
+                    <div className='flex flex-col p-8 w-1/2 mentor-detail-warp-des ' >
 
                         {/* Description */}
-                        <h2 className='text-[24px] font-bold mb-6' >
+                        <h2 className='xl:text-[24px] text-[16px] lg:text-[18px] font-bold mb-6' >
                             Description
                         </h2>
-                        <p className='w-full text-[18px] leading-10  ' >
+                        <p className='w-full xl:text-[18px] text-[12px] lg:text-[14px] leading-10  ' >
                             {mentors.bio}
                         </p>
 
                         {/* Skills */}
-                        <h2 className='text-[24px] font-bold mb-6 mt-10 ' >
+                        <h2 className='xl:text-[24px] text-[16px] lg:text-[18px] font-bold mb-6 mt-10 ' >
                             Skills
                         </h2>
-                        <ul className='w-full text-[18px] leading-10 ' >
+                        <ul className='w-full xl:text-[18px] text-[12px] lg:text-[14px] leading-10 ' >
                             { mentors && mentors.skills && mentors.skills.map((skill)=> (
                                 <li className='mb-5' key={skill} >
                                    {"=>"} { skill }
@@ -218,10 +256,10 @@ const detail = () => {
                         </ul>
 
                         {/* Company */}
-                        <h2 className='text-[24px] font-bold mb-6 mt-10 ' >
+                        <h2 className='xl:text-[24px] text-[16px] lg:text-[18px] font-bold mb-6 mt-10 ' >
                             Current Working Company
                         </h2>
-                        <p className='w-full text-[18px] leading-10' >
+                        <p className='w-full xl:text-[18px] text-[12px] lg:text-[14px] leading-10' >
                             { mentors.job_title } at { mentors.company }
                         </p>
 
@@ -230,9 +268,9 @@ const detail = () => {
                     {mentors.agreedMenteeIds?.includes(user?._id) ? (
                         <div>
                             {mentors.bookedMenteeIds?.includes(user?._id) ? (
-                                <div className="border-3 rounded-2xl p-12 -mt-20 mr-10 min-w-[35%] bg-white">
-                                    <h3 className="text-[18px] font-bold text-center" >Already Chosen</h3>
-                                    <p className='mt-5 text-[18px] text-center ' >{alreadyChosen}</p>
+                                <div className="border-3 rounded-2xl p-12 -mt-20 mr-10 min-w-[35%] bg-white mentor-detail-warp-agree">
+                                    <h3 className="xl:text-[18px] text-[12px] font-bold text-center" >Already Chosen</h3>
+                                    <p className='mt-5 xl:text-[16px] text-[12px] text-center ' >{alreadyChosen}</p>
                                     <div className='flex justify-center mt-10' >
                                         <Link href='/matches' >
                                             <Button className="!text-[18px] !py-[20px] !px-[25px] mr-5 mb-8" color='primary' >
@@ -242,10 +280,10 @@ const detail = () => {
                                     </div>
                                 </div>
                             ) : (
-                                <div className="border-3 rounded-2xl p-12 -mt-20 mr-10 min-w-[35%] bg-white">
-                                <h3 className="text-[18px] font-bold text-center">Choose Schedules</h3>
+                                <div className="border-3 rounded-2xl p-12 -mt-20 mr-10 min-w-[35%] bg-white mentor-detail-warp-agree">
+                                <h3 className="xl:text-[18px] text-[12px]  font-bold text-center">Choose Schedules</h3>
                                 {schedulesForMentee.length > 0 ? (
-                                <div className='grid grid-cols-2 mt-9 gap-3 ' >
+                                <div className='grid sm:grid-cols-2 grid-cols-1 mt-9 gap-3 ' >
                                     {schedulesForMentee.map((schedule, index) => {
                                     const isSelected = selectedSchedule.some(
                                         (s) => s.startDate === schedule.startDate
@@ -255,7 +293,7 @@ const detail = () => {
                                         <Button
                                         key={index}
                                         color={isSelected ? "success" : "primary"}
-                                        className="!text-[18px] !py-[20px] !px-[25px] mr-5 mb-8"
+                                        className="xl:text-[18px] text-[12px] !py-[20px] !px-[25px] xl:px-[40px] mr-5 mb-8"
                                         isDisabled={selectedSchedule.length > 0 && !isSelected}
                                         onClick={() => handleHourClick(schedule)}
                                         >
@@ -269,14 +307,14 @@ const detail = () => {
                                 <div>Wait to Generate Schedule</div>
                                 )}
                                 <div className='flex justify-center mt-10 ' >
-                                    <Button color='warning' onClick={onLoginGoogleHandler} className='!text-[18px] !py-[20px] !px-[25px] mr-5 mb-8  ' >
+                                    <Button color='warning' onClick={onLoginGoogleHandler} className='sm:text-[18px] !py-[20px] !px-[25px] mr-5 mb-8  ' >
                                         Login To Google
                                     </Button>
                                     <Button
                                         color='secondary'
-                                        className="!text-[18px] !py-[20px] !px-[25px] mr-5 mb-8  "
+                                        className="sm:text-[18px] !py-[20px] !px-[25px] mr-5 mb-8  "
                                         onClick={onBookingHandler}
-                                        isDisabled={!selectedSchedule.length}
+                                        isDisabled={!selectedSchedule.length || code == undefined || scope == undefined}
                                         isLoading={isBooking}
                                     >
                                         Book
@@ -287,9 +325,9 @@ const detail = () => {
                         </div>
                         
                     ) : 
-                    (<div className='border-3 rounded-2xl p-12 -mt-20  mr-10 min-w-[35%] bg-white !h-[30%] ' >
-                        <h3 className='text-[18px] font-bold text-center ' >Rules & Regulations </h3>
-                        <ul className='text-[16px] leading-8 my-8 ' >
+                    (<div className='border-3 rounded-2xl xl:p-12 p-5 -mt-20  mr-10 min-w-[35%] bg-white !h-[30%] mentor-detail-warp-agree ' >
+                        <h3 className='xl:text-[18px] text-[12px] font-bold text-center ' >Rules & Regulations </h3>
+                        <ul className='xl:text-[16px] text-[12px] leading-8 my-8 ' >
                             <li>
                                 - Must respect mentor's time and availability
                             </li>
@@ -306,7 +344,7 @@ const detail = () => {
                                 - Maintain professionalism and respect boundaries 
                             </li>
                         </ul>
-                        <div className='flex items-center gap-4 mt-5 ' >
+                        <div className='flex items-center gap-4 mt-5 text-[12px] xl:text-[16px] ' >
                             <input id='agree' onChange={handleCheckboxChange}  className='size-6' type="checkbox"/>
                             <label htmlFor="agree">Agree to Rules and Regulations </label>
                         </div>

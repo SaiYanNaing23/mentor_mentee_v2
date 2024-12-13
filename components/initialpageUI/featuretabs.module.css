@@ -9,11 +9,6 @@
   justify-content: start;
   position: relative;
 }
-@media (min-width: 768px) {
-  .tabsContainer {
-    height: 40rem; 
-  }
-}
 
 .tabcontent {
 width: 100%;
@@ -46,4 +41,85 @@ object-position: center;
 width: 70%; 
 height: 300px; 
 border-radius: 16px;
+}
+
+
+/* Media query */
+
+@media (max-width: 1280px){
+  .tabsContainer {
+    max-width: 50rem; 
+    width: 50%;
+  }
+}
+
+@media (max-width: 1088px){
+  .tabcontainer {
+    height: 30rem; 
+    max-width: 80rem;
+    margin: 4rem auto;
+    width: 50%;
+  }
+}
+
+@media (max-width: 961px){
+  .page{
+    font-size: 1.8rem; 
+    font-weight: bold; 
+    margin-bottom: 20px;
+    }
+    
+    .text{
+    font-size: 1.4rem;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    white-space: pre-line;
+    }
+    
+    .image {
+      width: 80%; 
+      height: 200px; 
+      border-radius: 16px;
+    }
+
+    .tabcontainer {
+      height: 15rem; 
+    }
+}
+
+@media (min-width: 768px) {
+  .tabsContainer {
+    height: 40rem; 
+  }
+}
+
+@media (max-width: 822px){
+  .tabcontainer {
+    height: 30rem; 
+    max-width: 80rem;
+    margin: 4rem auto;
+    width: 50%;
+  }
+}
+
+@media (max-width: 684px){
+  .tabcontainer {
+    margin-left: 200px;
+  }
+}
+
+@media (max-width: 666px){
+  .tabcontainer {
+    height: 20rem; 
+    max-width: 0rem;
+    width: 0%;
+    margin-left: 60%;
+  }
+}
+
+@media (max-width: 482px){
+  .tabcontainer {
+    margin-left: 65%;
+  }
 }

@@ -3,6 +3,7 @@
     display: flex; 
     justify-content: space-between;
     align-items: center;
+    margin: 96px 0;
 }
 .leftdiv{
     width: 50%;
@@ -27,4 +28,25 @@
     font-size: 16px; 
     padding: 10px 20px; 
     cursor: pointer;
+}
+
+@media (max-width: 1088px){
+    .maintitle{
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 961px){
+    .maintitle{
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 684px){
+    .maindiv{ 
+        display: flex; 
+        flex-direction: column;
+        margin-top: 42px;
+        gap: 30px;
+    }
 }

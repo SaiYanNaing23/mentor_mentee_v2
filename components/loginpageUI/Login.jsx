@@ -43,7 +43,7 @@ const Login = () => {
     <div className={style.wholediv}>
       <div className={style.maindiv}>
         <div className={style.leftdiv}>
-          <img src="../../assets/images/login_img1.svg" alt="Login Image" width="400px" />
+          <img src="../../assets/images/login_img1.svg" alt="Login Image" width="100%" />
         </div>
         <div className={style.rightdiv}>
           <h1 className={style.title}>Login</h1>
@@ -74,7 +74,7 @@ const Login = () => {
               <label htmlFor="showpsw" className={style.showpsw}>Show password</label>
             </div>
             {error && <p className={style.error}>{error}</p>}
-            <Button type="submit" color='primary' className='text-center flex justify-center w-[30%] ml-[28%] text-[18px] font-bold py-8 px-5 mt-5' isLoading={isLoading}>Log In</Button>
+            <Button type="submit" color='primary' className='text-center flex justify-center w-[30%] ml-[35%] text-[18px] font-bold py-8 px-5 mt-5' isLoading={isLoading}>Log In</Button>
           </form>
           <div className={style.links}>
             <Link href="/login/forgot">Forgot password?</Link>
