@@ -8,7 +8,7 @@ import Footer from '@/components/initialpageUI/Footer';
 import Testimonials from '@/components/initialpageUI/Testimonials';
 const page = () => {
   return (
-    <div>
+    <div className='overflow-x-hidden ' >
       <Nav/>
       <Hero/>
       <Feature/>

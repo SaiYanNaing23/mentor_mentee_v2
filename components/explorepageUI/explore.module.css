@@ -17,7 +17,7 @@
     margin-bottom: 40px;
 }
 .searchbar{ 
-    width: 30%; 
+    width: 50%; 
     height: 40px;
     border: 1px solid #00206B;
     border-radius: 10px;
@@ -52,4 +52,35 @@
     padding: 10px;
     border-radius: 10px;
 
+}
+
+@media (max-width : 1357px){
+    .title{
+        font-size: 16px;
+    }
+    .titleactive{
+        font-size: 16px;
+    }
+}
+
+@media (max-width : 1280px) {
+    .titlelist{
+        display: grid;
+        grid-template-columns: repeat(3 , 1fr);
+        gap: 24px;
+    }
+}
+
+@media (max-width : 891px){
+    .titlelist{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+}
+
+@media (max-width : 950px){
+    .searchbar{ 
+        width: 90%; 
+    }
 }

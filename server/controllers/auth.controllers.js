@@ -99,29 +99,26 @@ export const authCheck = async (req, res) => {
     }
 };
 
-export const generatePassword = async ( req, res ) => {
+export const generatePassword = async (req, res) => {
     try {
         const { email, newPassword } = req.body;
 
-        console.log(email, newPassword);
-        if(!email && !newPassword) {
-            res.status(404).json({ message : "All fields are required", success: false });
+        if (!email || !newPassword) {
+            return res.status(400).json({ message: "All fields are required", success: false });
         }
-
-        // Hash the password
+     
         const salt = await bcryptjs.genSalt(10);
         const hashedPassword = await bcryptjs.hash(newPassword, salt);
+    
+        const user = await User.findOneAndUpdate({ email }, { password: hashedPassword });
 
-        const user =  await User.findOneAndUpdate({ email }, { password: hashedPassword} );
-
-        if(!user) {
-            res.status(404).json({ message : "Email is incorrect.", success: false });
+        if (!user) {
+            return res.status(404).json({ message: "Email is incorrect.", success: false });
         }
-
-        res.status(200).json({ message: 'Password is changed successfully' });
-
+     
+        res.status(200).json({ message: "Password is changed successfully", success: true });
     } catch (error) {
-        res.status(500).json({ message: 'Internal Server Error', success: false });
         console.error(error);
+        res.status(500).json({ message: "Internal Server Error", success: false });
     }
-}
+};

@@ -72,10 +72,33 @@ export const specialization= async (req, res) => {
 export const getSkill= async (req, res) => {
     try {
         const { specialization } = req.body;
-        const skill = await Skill.findOne({ specialization : specialization })
+        // Run a MongoDB update query to fix the field name in all documents
+        await Skill.updateMany(
+            { "specialization ": { $exists: true } }, // Match documents with the incorrect key
+            [
+                {
+                $set: {
+                    specialization: {
+                    $toLower: { $trim: { input: "$specialization " } } // Trim and convert to lowercase
+                    }
+                }
+                },
+                {
+                $unset: "specialization " // Remove the old field with the trailing space
+                }
+            ]
+        );          
 
-        if(!skill){
-            res.status(400).json({ message: "skill not found", success: false });
+        const normalizedSpecialization = specialization.trim().toLowerCase();
+
+        const skill = await Skill.findOne({
+            specialization: { 
+                $regex: new RegExp(`^${normalizedSpecialization}$`, 'i') 
+            }
+        });
+        
+        if (!skill) {
+            return res.status(404).json({ message: "Skill not found" });
         }
 
         await User.findByIdAndUpdate(req.user._id, {
@@ -230,5 +253,56 @@ export const matching = async (req, res) => {
     } catch (error) {
         console.log(error)
         res.status(500).json({ message: 'Internal Server Error', success: false });
+    }
+}
+
+export const searchingMentors = async (req, res) => {
+    try {
+        const { user_id, jobTitle } = req.body;
+        if( !jobTitle && !user_id ){
+            return res.status(400).json({ message: "Job title is required", success: false });
+        }
+  
+        const user = [];
+        user.push({
+            id: user_id.toString(),
+            content: jobTitle.trim(),
+        })
+
+        const mentors = await Mentor.find()
+
+        const mentorTag = [];
+        mentors.map((mentor)=> {
+            mentorTag.push({
+                id: mentor._id.toString(),
+                content: mentor.job_title.trim(),
+            })
+        })
+
+        const recommender = new ContentBasedRecommender({
+            minScore: 0.1,
+            maxSimilarDocuments: 100
+          });
+
+        recommender.trainBidirectional(user, mentorTag);
+
+        let searchedMentorIds = []
+        for (let post of user) {
+            const relatedTags = recommender.getSimilarDocuments(post.id);
+            searchedMentorIds.push(...relatedTags);
+        }
+
+        let finalSearchingMentors = []
+        searchedMentorIds.map((mentor) => {
+            const filterMentors = mentors.find((m) => m._id.toString() === mentor.id);
+            finalSearchingMentors.push(filterMentors)
+        })
+
+        return res.status(200).json({ content : finalSearchingMentors , success: true });
+
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Internal Server Error', success: false });
     }
 }

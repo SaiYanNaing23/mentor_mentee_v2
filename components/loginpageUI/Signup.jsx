@@ -5,6 +5,8 @@ import style from "@/components/loginpageUI/signup.module.css"
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useAuthStore } from "@/store/auth"
+import { Button } from "@nextui-org/react"
+import { toast } from "sonner"
 
 
 const Signup = () => {
@@ -22,9 +24,19 @@ const Signup = () => {
   const [isShowPw, setIsShowPw] = useState(false);
   const { isSignUp, signup } = useAuthStore()
 
+  const [ isLoading, setIsLoading ] = useState(false);
+
   const onSubmitSignUpHandler = async (e) =>{
     e.preventDefault();
-    signup({username, email, password})
+    setIsLoading(true);
+
+    if(!email || !password) {
+      toast.error("Error", { description : "Email or Password is required."})
+      setIsLoading(false);
+    } else{
+      signup({username, email, password})
+      setIsLoading(false);
+    }
   }
 
   const showPassword = () =>{
@@ -68,7 +80,9 @@ const Signup = () => {
                 <label htmlFor="showpsw" onClick={showPassword} className="cursor-pointer ml-3 " >Show password</label>
               </div>
               {/* <Link href="/buildingprofile"> */}
-                <button className={style.signup}>Sign Up</button>
+              <div className="w-full text-center" >
+                <Button color="primary" className="text-[16px] py-8 px-5 text-center mt-10 " isLoading={isLoading} type="submit" >Sign Up</Button>
+              </div>
               {/* </Link> */}
             </form>
 

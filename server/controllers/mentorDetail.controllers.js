@@ -31,30 +31,38 @@ export const loginAuth = async (req, res) => {
 };
 
 // Handle Google OAuth callback and exchange code for tokens
+
 export const handleGoogleCallback = async (req, res) => {
     try {
-        const { code } = req.body; // Get the authorization code from the request body
-
-        // Exchange the authorization code for tokens
+        const { code } = req.body; 
+       
+        const tokensFilePath = 'tokens.json';
+        if (fs.existsSync(tokensFilePath)) {
+            console.log('Tokens file already exists. Skipping token set and save.');
+            const tokens = JSON.parse(fs.readFileSync(tokensFilePath));
+            oAuth2Client.setCredentials(tokens);
+            return res.status(200).json({ success: true, message: "Authentication successful!", tokens });
+        }
+       
         const { tokens } = await oAuth2Client.getToken(code);
-
-        // Set the tokens to the OAuth2 client
+   
         oAuth2Client.setCredentials(tokens);
-
-        // Save the tokens to a file
-        fs.writeFileSync('tokens.json', JSON.stringify(tokens, null, 2));
+      
+        fs.writeFileSync(tokensFilePath, JSON.stringify(tokens, null, 2));
 
         res.status(200).json({ success: true, message: "Authentication successful!", tokens });
     } catch (error) {
-        console.error('Error exchanging code for tokens:', error);
+        console.error('Error exchanging code for tokens:', error.message || error);
         res.status(500).json({ success: false, message: "Failed to authenticate" });
     }
 };
+
 
 // Generate Google Meet link by creating an event
 export const generateMeetingLink = async (req, res) => {
     try {
         const { summary, description, startTime, endTime, attendees, user_id, mentor_id } = req.body;
+
         // Load credentials
         // const credentials = JSON.parse(fs.readFileSync('./creditentials.json'));
         const credentials = googleCredentials;

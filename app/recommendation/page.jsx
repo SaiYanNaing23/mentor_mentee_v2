@@ -22,18 +22,21 @@ const Page = () => {
   }
 
   return (
-    <div className="h-screen flex items-center justify-center relative flex-col ">
-      <h1 className='-mt-[80px] mb-[70px] text-[24px] font-bold' >
-        Recommended Mentors 
-      </h1>
+    <div className="h-screen flex items-center justify-center relative flex-col">
       <div>
-        <div className='grid grid-cols-3 gap-12 ' >
+        <h1 className='mt-[50px] mb-[20px] text-[24px] font-bold text-center' >
+          Recommended Mentors 
+        </h1>
+        <p className='text-[18px] font-bold mb-[70px] mx-[50px] ' >
+          The mentors shown below are Top 6 Mentors we recommend for you, who best match with your chosen career and skills.
+        </p>
+        <div className='grid grid-cols-2 sm:grid-cols-3 lg:gap-12 md:gap-7 md:ml-[80px] sm:ml-[80px] ml-[30px] recommendation ' >
           {/* Render mentors */}
           {mentors.length > 0 ? (
             mentors.map((mentor) => (
-              <div key={mentor._id} className="bg-white w-[300px] mb-5 rounded-xl">
+              <div key={mentor._id} className="bg-gray-100 lg:w-[280px] md:w-[200px] w-[250px] sm:[180px]  mb-5 rounded-xl">
                 <div className='p-6 text-center border-b flex justify-center ' >
-                  <img src="/assets/images/profile.svg" alt="profile" width={180} height={180} />
+                  <img src="/assets/images/profile.svg" alt="profile" width={120} height={120} />
                 </div>
                 <div className='p-6' >
                   <h1 className='mb-3' >
@@ -63,7 +66,7 @@ const Page = () => {
           )}
         </div>
       </div>
-      <div className='absolute bottom-20 right-20 ' >
+      <div className='ml-auto mr-[30px] mb-[30px] ' >
         <Link href='/' >
           <Button 
             color="secondary"

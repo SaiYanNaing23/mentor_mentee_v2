@@ -10,7 +10,11 @@
     height: 100vh;
     padding: 30px; 
     box-sizing: border-box; 
-    background-color: #F0F3FA;    
+    background-color: #F0F3FA; 
+    display: flex;
+    flex-direction: column; 
+    justify-content: space-between;  
+    border-top-right-radius: 24px;
 }
 .sidenav:hover{
     box-shadow: 24px 2px 21px -21px rgba(0,0,0,0.1);
@@ -18,6 +22,7 @@
 .contentdiv{
     width: 100%; 
     padding-right: 20px;
+    padding-left: 20px;
     height: 100vh;
     overflow-y: scroll;
 }
@@ -33,12 +38,13 @@
 }
 
 .profilediv{
-    margin-top: 250px; 
-    bottom: 0;
+    /* margin-top: 250px;  */
+    /* bottom: 0;
     display: flex;
     justify-content: center;
     align-items: center; 
-    text-align: center;
+    text-align: center; */
+    margin-bottom: 80px;
 }
 .items li:hover {
     transform: scale(1.1); 
@@ -96,23 +102,6 @@
     font-size: 20px;
     font-weight: 600;
 }
-
-/* Announcement Div */
-/* .announcediv{
-    border: 2px solid #00206B; 
-    border-radius: 10px; 
-    padding: 20px;
-    max-height: 360px;
-    overflow-y: auto;
-} */
-/* .announcediv .infodiv{
-    display: flex; 
-    justify-content: space-between;
-    margin-bottom: 20px;
-} */
-/* .infodiv .left{
-    width: 75%;
-} */
 .announcetitle, .announcedate{
     font-size: 20px;
     font-weight: 800;
@@ -133,4 +122,68 @@
     width: 100%;
     height: 2px;
     margin-bottom: 10px;
+}
+
+@media ( max-width: 989px ){
+    .maintitle{ 
+        font-size: 20px;
+        font-weight: 800;
+    }
+    .text{
+        font-size: 16px;
+    }
+
+    .announcetitle, .announcedate{
+        font-size: 18px;
+        font-weight: 800;
+        margin-bottom: 3px;
+    }
+    .announcetext{
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 30px;
+    } 
+}
+
+@media ( max-width: 770px ){
+    .welcomediv{
+        display: flex; 
+        flex-direction: column;
+        padding: 10px;
+        margin-top: 20px;
+        align-items: center;
+        padding: 24px 0;
+    }
+    .welcomediv .leftdiv{
+        width: 100%; 
+        padding-left: 0px;
+    }
+    .welcomediv .rightdiv{
+        width: 70%;
+        margin-top: 42px;
+    }
+}
+
+@media ( max-width: 504px ){
+    .title{ 
+        font-size: 18px; 
+        font-weight: 800;
+        margin-bottom: 40px;
+    }
+    .text{
+        font-size: 12px;
+        padding: 20px;
+        margin-bottom: 40px; 
+    }
+
+    .announcetitle, .announcedate{
+        font-size: 14px;
+        font-weight: 800;
+        margin-bottom: 3px;
+    }
+    .announcetext{
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 30px;
+    } 
 }

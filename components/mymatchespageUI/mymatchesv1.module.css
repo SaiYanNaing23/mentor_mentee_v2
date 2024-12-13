@@ -77,44 +77,49 @@
     margin: auto;  
 }
 
-@media ( max-width: 989px ){
-    .title{ 
-        font-size: 20px; 
-        font-weight: 800;
-        margin-bottom: 40px;
-    }
-    .text{
-        font-size: 14px;
-        padding: 20px;
-        margin-bottom: 40px; 
-    }
-}
-
-@media ( max-width: 504px ){
-    .title{ 
-        font-size: 18px; 
-        font-weight: 800;
-        margin-bottom: 40px;
-    }
-    .text{
-        font-size: 12px;
-        padding: 20px;
-        margin-bottom: 40px; 
-    }
-}
-
-@media ( max-width: 770px ){
+@media ( max-width: 1280px ){
     .mentor .name{
         font-size: 16px; 
-        margin-left: 20px;
     }
     .mentor .jobtitle{
-        font-size: 12px;
-        margin-left: 20px;
+        font-size: 16px;
     } 
-    .mentor{
-        padding: 10px;
-        margin: 10px; 
-        max-width: 250px;
+}
+
+@media ( max-width : 1184px){
+    .mentor .jobtitle{
+        font-size: 12px;
+    } 
+}
+
+@media ( max-width: 1088px){
+    .matches{
+        display: grid; 
+        grid-template-columns: repeat(3,1fr);
+        justify-content: space-evenly;
     }
+    .mentor .image{
+        max-width: 100%; 
+        height: auto; 
+        border: 1px solid #00206B;
+        margin: auto;
+    }
+    .button{
+        font-size: 12px; 
+        padding: 5px;  
+    }
+}
+
+@media ( max-width: 608px){
+    .matches{
+        display: grid; 
+        grid-template-columns: repeat(2,1fr);
+        justify-content: space-evenly;
+    }
+    .mentor .name{
+        font-size: 10px; 
+    }
+    .mentor .jobtitle{
+        font-size: 10px;
+    } 
 }

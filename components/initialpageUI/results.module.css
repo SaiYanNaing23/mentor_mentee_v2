@@ -25,3 +25,39 @@
     font-size: 24px;
     font-weight:400;
 }
+
+@media (max-width: 1088px){
+    .branch{ 
+        width: 20%; 
+        text-align: center;
+        padding: 30px 20px; 
+        background-color: #00246B;
+        color: #F0F3FA;
+        border-radius: 20px; 
+    }
+    .num{
+        font-size: 24px;
+        font-weight: 900;
+        margin-bottom: 10px;
+    }
+    .text{ 
+        font-size: 16px;
+        font-weight:400;
+    }
+}
+
+@media (max-width: 666px){
+    .main{ 
+        display: grid; 
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    .branch{ 
+        width: 90%; 
+        text-align: center;
+        padding: 10px 10px; 
+        background-color: #00246B;
+        color: #F0F3FA;
+        border-radius: 20px; 
+    }
+}

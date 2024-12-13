@@ -2,13 +2,9 @@
     padding: 10px 15px; 
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
-.logodiv{
-    width: 80%;
-}
-.btndiv{
-    width: 20%;
-}
+
 .browse{
     color:  #F0F3FA;
     background-color: black;
@@ -34,5 +30,3 @@
     background-color: darkred;
     color: #F0F3FA;
 }
-
-

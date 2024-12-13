@@ -21,11 +21,11 @@ const page = () => {
 
   return (
     <div className='h-screen flex w-screen' >
-    <div className='w-1/2 flex items-center justify-center h-screen' >
+    <div className='w-1/2 items-center justify-center h-screen md:flex hidden' >
     <img src="../../assets/images/specialization.svg" alt="Choose specialization" width="380px" className='m-auto'/>
     </div>
     <div className='w-1/2 flex items-center justify-center ' >
-      <div>
+      <div className=' md:ml-0 ml-[100%] ' >
       <p className='text-[22px] mb-12 font-bold tracking-wide leading-relaxed'><span className='text-[24px] font-extrabold'>Choose ONE</span> <br/>specialization that you're most excited about<br/> from the options below !</p>
         {specializations.length && specializations.map((specializations,index) => (
           <Button 

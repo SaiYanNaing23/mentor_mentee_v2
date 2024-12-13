@@ -1,8 +1,11 @@
-.maindiv{
+.maindiv {
     display: flex;
-    top: 0px; 
+    position: relative;
     left: 0px;
+    height: calc(100vh - 60px);
+    overflow: hidden; 
 }
+
 /* Side Nav bar */
 .sidenav{ 
     width: 15%; 
@@ -14,6 +17,18 @@
 }
 .sidenav:hover{
     box-shadow: 24px 2px 21px -21px rgba(0,0,0,0.1);
+}
+/* .contentdiv{
+    width: 85%; 
+    padding: 20px;
+    height: 100vh;
+} */
+
+.contentdiv {
+    flex-grow: 1; 
+    padding: 20px;
+    height: 100%; 
+    overflow-y: auto;
 }
 .items{
     list-style-type: none;
@@ -88,4 +103,39 @@
     font-weight: 500;
     line-height: 30px;
     margin-bottom: 40px;
+}
+
+@media (max-width: 1024px){
+    .profilediv .left{ 
+        width: 80%; 
+    }
+
+    .profileimg{
+        max-width: 50%; 
+        height: auto;
+        border-radius: 50%;
+        margin: auto;
+    }
+}
+
+@media (max-width : 1326px){
+    .name, .jobtitle{
+        font-size: 16px;
+        font-weight: 800;
+        text-align: start;
+        line-height: 50px;
+    }
+    .profilediv .right{ 
+        width: 100%; 
+    }
+}
+
+@media (max-width : 563px){
+
+    .profileimg{
+        max-width: 80%; 
+        height: auto;
+        border-radius: 50%;
+        margin: auto;
+    }
 }

@@ -84,64 +84,66 @@ const Buildingprofile = () => {
     return (
     <div className='flex h-screen justify-between'>
         {/* Left Div */}
-        <div className='w-1/2'>
+        <div className='w-full'>
             <form className={style.formdiv} onSubmit={onSubmitBuildProfile} >
                 {/* Form Left Side */}
-                <div className= 'flex justify-between '>
-                <div>
-                    <label htmlFor="name" className={style.labels}>Name</label>
-                    <input type="text" id="name" value={name} className={style.input} required onChange={changeName} />
+                <div className= 'flex justify-between gap-3 '>
+                    <div className='w-full' >
+                        <label htmlFor="name" className={style.labels}>Name</label>
+                        <input type="text" id="name" value={name} className={style.input} required onChange={changeName} />
 
-                    <label htmlFor="job" className={style.labels}>Job title</label>
-                    <input type="text" id="job" value={job} className={style.input} onChange={changeJob}/>
+                        <label htmlFor="job" className={style.labels}>Job title</label>
+                        <input type="text" id="job" value={job} className={style.input} onChange={changeJob}/>
 
-                    <label htmlFor="field" className={style.labels}>Field</label>
-                    <select 
-                        className={style.dropdown}
-                        placeholder="Select Field"
-                        value={selectedField}
-                        onChange={changeField}>
-                        <option value="" disabled>
-                            Select Field
-                        </option>
-                        {Array.isArray(field) && field.map((option, index) => (
-                            <option value={option} key={index}>
-                                {option}
+                        <label htmlFor="field" className={style.labels}>Field</label>
+                        <select 
+                            className={style.dropdown}
+                            placeholder="Select Field"
+                            value={selectedField}
+                            onChange={changeField}>
+                            <option value="" disabled>
+                                Select Field
                             </option>
-                        ))}
-                    </select>
-                </div>
- 
-                {/* Form Right Side */}
-                <div>
-                    <label htmlFor="country" className={style.labels}>Country</label>
-                    <input type="text" id="country" value={country} className={style.input} onChange={changeCountry}/>
+                            {Array.isArray(field) && field.map((option, index) => (
+                                <option value={option} key={index}>
+                                    {option}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+    
+                    {/* Form Right Side */}
+                    <div className='w-full' >
+                        <label htmlFor="country" className={style.labels}>Country</label>
+                        <input type="text" id="country" value={country} className={style.input} onChange={changeCountry}/>
 
-                    <label htmlFor="company" className={style.labels}>Company</label>
-                    <input type="text" id="company" className={style.input} value={company} onChange={changeCompany}/>
+                        <label htmlFor="company" className={style.labels}>Company</label>
+                        <input type="text" id="company" className={style.input} value={company} onChange={changeCompany}/>
 
-                    <label htmlFor="level" className={style.labels}>Proficiency level</label>
-                    <select className={style.dropdown} value={level} required onChange={changeLevel}>
-                        <option value="" disabled >Select Your Experience</option>
-                        <option value="Starter">Starter</option> 
-                        <option value="Beginner">Beginner</option>
-                        <option value="Intermediate">Intermediate</option>
-                        <option value="Advanced">Advanced</option>
-                        <option value="Professional">Professional</option>
-                    </select>
-                </div>
+                        <label htmlFor="level" className={style.labels}>Proficiency level</label>
+                        <select className={style.dropdown} value={level} required onChange={changeLevel}>
+                            <option value="" disabled >Select Your Experience</option>
+                            <option value="Starter">Starter</option> 
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Advanced">Advanced</option>
+                            <option value="Professional">Professional</option>
+                        </select>
+                    </div>
                 </div>
                 {/* Bio Section */}
                 <label htmlFor="bio" className={style.labels}>Bio</label>
                 <textarea id="bio" value={bio} rows="5" className={style.input} style={{ width: '100%', height: '150px' }} required onChange={changeBio}></textarea>
 
                 {/* Button */}
-                <Button type="submit" className='text-[16px] py-8 px-5 ' color='primary' isLoading={isLoading}  >Build Profile</Button>
+                <div className='w-full flex justify-center items-center' >
+                    <Button type="submit" className='text-[16px] py-8 px-5 text-center !w-[150px] ' color='primary' isLoading={isLoading}  >Build Profile</Button>
+                </div>
             </form>
         </div>
         
         {/* Right div */}
-        <div className='mr-auto p-[50px] pt-[100px] ' >
+        <div className=' p-[50px] pt-[100px] building-right w-[50%] building-right ' >
             {/* Profile div */}
             <div className={style.profilediv}>
                 <div>
