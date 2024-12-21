@@ -20,7 +20,6 @@ const page = () => {
   if (user) {
     return (
       <div className='h-screen overflow-y-hidden'>
-        <GlobalNav />
         <Buildingprofile/>
       </div>
     )

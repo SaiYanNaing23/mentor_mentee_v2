@@ -147,7 +147,7 @@ const Buildingprofile = () => {
             {/* Profile div */}
             <div className={style.profilediv}>
                 <div>
-                    <img src="../../assets/images/femaleprofile.svg" alt="User Profile" className={style.profileimg}/>
+                    <img src="../../assets/icons/profile.svg" alt="User Profile" className={style.profileimg}/>
                 </div>
                 <div>
                     <p className={style.name}>{name}</p>

@@ -7,9 +7,6 @@ import moment from "moment";
 import Link from 'next/link';
 import { validateToken } from '@/utils/helper';
 
-
-
-
 const Mymatches = () => {
     const { authCheck } = useAuthStore()
     const [ userSchedules, setUserSchedules ] = useState([]);

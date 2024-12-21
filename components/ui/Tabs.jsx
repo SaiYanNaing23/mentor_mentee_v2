@@ -55,7 +55,7 @@ export const Tabs = ({
     />
   )} */}
 
-  <span className="relative block !text-[#00246B] mb-[42px] text-[24px]  ">
+  <span className="relative block !text-[#00246B] mb-[42px] text-[24px] font-bold ">
     {tab.title}
   </span>
 </button>
@@ -65,10 +65,9 @@ export const Tabs = ({
     <FadeInDiv
       tabs={tabs}
       active={active}
-      key={active.value}
+      key={active.value} 
       hovering={hovering}
-      className={cn("!w-[900px] !h-[500px] feature-tab ", contentClassName)} />
-    
+      className={cn("!w-[900px] !h-[500px] feature-tab ", contentClassName)}/>
   </div>
   </>);
 };

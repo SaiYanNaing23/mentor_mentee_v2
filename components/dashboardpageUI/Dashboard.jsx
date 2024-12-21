@@ -15,10 +15,6 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import {Card, CardHeader, CardBody, CardFooter, Divider, Image} from "@nextui-org/react";
 
-
-
-
-
 const Sidenav = () => {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const [ announcementTitle, setAnnouncementTitle ] = useState('')
@@ -118,7 +114,6 @@ const Sidenav = () => {
         <div className={style.welcomediv}>
           <div className={style.leftdiv}>
             <h1 className={style.maintitle}>Glad you're here !</h1>
-            
             <h3 className={style.text}>Success starts with the right mentor<br/>
             Begin your match-making journey!</h3>
           </div>
@@ -144,14 +139,14 @@ const Sidenav = () => {
                                   <b>Google meeting link is </b>
                               </p>
                               <Link href={moment().isBetween(schedule.start_time, schedule.end_time) ? schedule.meeting_link : '#'} className={moment().isBetween(schedule.start_time, schedule.end_time) ? '' : 'text-gray-500 cursor-not-allowed'} >
-                                  {schedule.meeting_link}
+                                {schedule.meeting_link}
                               </Link>
                           </div>
                           <p>This link will be only available when it reaches the given session time</p>
                       </div>
                   ))
               ) : (
-                  <div className='py-[64px] text-[18px] '>
+                  <div className='py-[64px] ps-[50px] text-[18px] font-bold'>
                     <p>
                       You have no scheduled meeting yet. Choose a mentor and book a session ! 
                     </p>
@@ -282,9 +277,7 @@ const Sidenav = () => {
               </div>
             </div>
         </div>
-      </div>
-
-      
+      </div> 
 
     {/* Models */}
     <Modal 

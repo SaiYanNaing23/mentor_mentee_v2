@@ -140,3 +140,10 @@ body {
         width: 100%;
     }
 }
+@media (max-width : 556px) {
+    .recommendation{
+        grid-template-columns: repeat(1, 1fr) ;
+        margin-top: 0px !important;
+        margin-left: 25%;
+    }
+}

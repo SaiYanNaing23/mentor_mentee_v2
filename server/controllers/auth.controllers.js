@@ -113,7 +113,7 @@ export const generatePassword = async (req, res) => {
         const user = await User.findOneAndUpdate({ email }, { password: hashedPassword });
 
         if (!user) {
-            return res.status(404).json({ message: "Email is incorrect.", success: false });
+            return res.status(400).json({ message: "Email is incorrect.", success: false });
         }
      
         res.status(200).json({ message: "Password is changed successfully", success: true });

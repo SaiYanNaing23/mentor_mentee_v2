@@ -22,15 +22,15 @@ const Page = () => {
   }
 
   return (
-    <div className="h-screen flex items-center justify-center relative flex-col">
+    <div className="flex items-center justify-center relative flex-col">
       <div>
         <h1 className='mt-[50px] mb-[20px] text-[24px] font-bold text-center' >
           Recommended Mentors 
         </h1>
-        <p className='text-[18px] font-bold mb-[70px] mx-[50px] ' >
+        <p className='text-[18px] font-bold mb-[20px] mx-[50px] ' >
           The mentors shown below are Top 6 Mentors we recommend for you, who best match with your chosen career and skills.
         </p>
-        <div className='grid grid-cols-2 sm:grid-cols-3 lg:gap-12 md:gap-7 md:ml-[80px] sm:ml-[80px] ml-[30px] recommendation ' >
+        <div className='grid grid-cols-2 sm:grid-cols-3 lg:gap-12 md:gap-7 md:ml-[80px] sm:ml-[80px] ml-[30px] recommendation' >
           {/* Render mentors */}
           {mentors.length > 0 ? (
             mentors.map((mentor) => (
@@ -39,7 +39,7 @@ const Page = () => {
                   <img src="/assets/images/profile.svg" alt="profile" width={120} height={120} />
                 </div>
                 <div className='p-6' >
-                  <h1 className='mb-3' >
+                  <h1 className='mb-3 font-bold' >
                     {mentor.name}
                   </h1>
                   <h1 className='mb-3' >
@@ -56,7 +56,7 @@ const Page = () => {
                       className="!text-[18px] !py-[8px] !px-[15px] mr-5 mb-8"
                       onClick={()=> redirectMentorDetailHandler(mentor)}
                     >
-                      Show Info
+                      View more
                   </Button>
                 </div>
               </div>

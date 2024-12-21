@@ -110,7 +110,7 @@ const Userprofile = () => {
             {/* Profile div */}
             <div className={style.profilediv}>
                 <div className={style.left}>
-                    <img src="../../assets/icons/profilev2.svg" alt="User Profile" className={style.profileimg}/>
+                    <img src="../../assets/icons/profile.svg" alt="User Profile" className={style.profileimg}/>
                 </div>
                 <div className={style.right}>
                     <div className='flex flex-col justify-start w-full' >
