@@ -1,9 +1,15 @@
+.pagetitle{
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center; 
+    padding-top: 50px;
+}
 .formdiv{
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     padding: 50px;
-    padding-top: 100px;
+    padding-top: 50px;
 }
 
 /* Left Div (Form) */
@@ -97,5 +103,11 @@
 @media (max-width: 505px) {
     .labels{ 
         font-size: 14px;
+    }
+}
+
+@media (max-width: 482px) {
+    .pagetitle{
+        font-size: 16px;
     }
 }

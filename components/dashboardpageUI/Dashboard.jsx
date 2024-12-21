@@ -89,20 +89,20 @@ const Sidenav = () => {
 
       {/* Mobile Nav Bar */}
       {isMobileMenuOpen && (
-        <ul className='absolute flex flex-col gap-y-8 text-center w-full md:hidden z-50 bg-gray-200 top-0 left-0 h-screen px-5 py-[200px] ' >
-            <Link href={'/'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+        <ul className='absolute flex flex-col gap-y-12 text-center w-full md:hidden z-50 bg-gray-200 top-0 left-0 h-screen px-5 py-[200px] ' >
+            <Link href={'/'} className='cursor-pointer font-bold hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
                 Dashboard
             </Link>
-            <Link  href={'/explore'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+            <Link  href={'/explore'} className='cursor-pointer font-bold hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
                 Explore
             </Link>
-            <Link href={'/matches'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+            <Link href={'/matches'} className='cursor-pointer font-bold hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
                 My Matches
             </Link>
-            <Link href={'/about'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+            <Link href={'/about'} className='cursor-pointer font-bold hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
                 About
             </Link>
-            <Link href={'/profile'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+            <Link href={'/profile'} className='cursor-pointer font-bold hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
                 Profile
             </Link>
         </ul>
@@ -156,7 +156,7 @@ const Sidenav = () => {
 
         {/* Feed back */}
         <div className='my-[84px]' >
-          <h1 className='text-[24px] font-bold text-center ' >Hear From Our Users </h1>
+          <h1 className={style.title}>Hear From Our Users </h1>
           <div className='lg:flex lg:justify-around' >
             {/* 1st mentee */}
             <Card className="xl:max-w-[350px] lg:max-w-[250px] my-[64px] ">
@@ -278,40 +278,6 @@ const Sidenav = () => {
             </div>
         </div>
       </div> 
-
-    {/* Models */}
-    <Modal 
-     isOpen={isOpen} 
-     onOpenChange={onOpenChange}
-    >
-        <ModalContent style={{ width: '500px', maxWidth: '800px' }}>
-          {(onClose) => (
-            <>
-              <ModalHeader className="flex flex-col gap-1 text-[18px] ">Create Announcement</ModalHeader>
-              <ModalBody>
-                <label>Title</label>
-                <input type="text" className={inputStyle.input} style={{width: "100%"}} value={announcementTitle} onChange={(e)=> setAnnouncementTitle(e.target.value)} />
-                <label>Text Area</label>
-                <textarea 
-                  id="bio" 
-                  rows="5" 
-                  className={style.input} 
-                  style={{ width: '100%', height: '150px', border: '1px solid #000' }} 
-                  value={announcementContent} 
-                  onChange={(e) => setAnnouncementContent(e.target.value)} ></textarea>
-              </ModalBody>
-              <ModalFooter>
-                <Button color="danger" className='text-[16px] !py-8 px-5 ' variant="light" onPress={onClose}>
-                  Close
-                </Button>
-                <Button color="primary" className='text-[16px] !py-8 px-5 ' onPress={onCreateAnnouncementHandler}>
-                  Action
-                </Button>
-              </ModalFooter>
-            </>
-          )}
-        </ModalContent>
-    </Modal>
 
     </div>
   )

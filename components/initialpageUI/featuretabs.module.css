@@ -1,3 +1,10 @@
+.containertitle{
+  font-size: 30px; 
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 70px;
+}
+
 .tabcontainer {
   height: 20rem; 
   max-width: 80rem;
@@ -11,38 +18,37 @@
 }
 
 .tabcontent {
-width: 100%;
-padding: 40px;
-border-radius: 16px;
-color: white;
-background: linear-gradient(to bottom right, #00206B, #5b21b6);
+  width: 100%;
+  padding: 40px;
+  border-radius: 16px;
+  color: white;
+  background: linear-gradient(to bottom right, #00206B, #5b21b6);
 }
 
 .page{
-font-size: 2.5rem; 
-font-weight: bold; 
-margin-bottom: 20px;
+  font-size: 2.5rem; 
+  font-weight: bold; 
+  margin-bottom: 20px;
 }
 
 .text{
-font-size: 1.8rem;
-font-weight: 500;
-line-height: 1.5;
-margin-bottom: 20px;
-white-space: pre-line;
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  white-space: pre-line;
 }
 
 .image {
-display: block;
-margin-left: auto;  
-margin-right: auto; 
-object-fit: contain; 
-object-position: center;
-width: 70%; 
-height: 300px; 
-border-radius: 16px;
+  display: block;
+  margin-left: auto;  
+  margin-right: auto; 
+  object-fit: contain; 
+  object-position: center;
+  width: 70%; 
+  height: 300px; 
+  border-radius: 16px;
 }
-
 
 /* Media query */
 
@@ -68,22 +74,19 @@ border-radius: 16px;
     font-weight: bold; 
     margin-bottom: 20px;
     }
-    
-    .text{
+  .text{
     font-size: 1.4rem;
     font-weight: 500;
     line-height: 1.5;
     margin-bottom: 20px;
     white-space: pre-line;
     }
-    
-    .image {
+  .image {
       width: 80%; 
       height: 200px; 
       border-radius: 16px;
     }
-
-    .tabcontainer {
+  .tabcontainer {
       height: 15rem; 
     }
 }
@@ -120,6 +123,13 @@ border-radius: 16px;
 
 @media (max-width: 482px){
   .tabcontainer {
+    margin-top: 0px;
     margin-left: 65%;
+    margin-bottom: 10px;
   }
+  .containertitle{
+    font-size: 28px; 
+    margin-bottom: 15px;
+  }
+  
 }

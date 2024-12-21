@@ -57,20 +57,20 @@ const Explore = () => {
 
       {/* Mobile Nav Bar */}
       {isMobileMenuOpen && (
-        <ul className='absolute flex flex-col gap-y-8 text-center w-full md:hidden z-50 bg-gray-200 top-0 left-0 h-screen px-5 py-[200px] ' >
-            <Link href={'/'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+        <ul className='absolute flex flex-col gap-y-12 text-center w-full md:hidden z-50 bg-gray-200 top-0 left-0 h-screen px-5 py-[200px] ' >
+            <Link href={'/'} className='cursor-pointer font-bold hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
                 Dashboard
             </Link>
-            <Link  href={'/explore'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+            <Link  href={'/explore'} className='cursor-pointer font-bold hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
                 Explore
             </Link>
-            <Link href={'/matches'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+            <Link href={'/matches'} className='cursor-pointer font-bold hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
                 My Matches
             </Link>
-            <Link href={'/about'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+            <Link href={'/about'} className='cursor-pointer font-bold hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
                 About
             </Link>
-            <Link href={'/profile'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+            <Link href={'/profile'} className='cursor-pointer font-bold hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
                 Profile
             </Link>
         </ul>
@@ -79,13 +79,18 @@ const Explore = () => {
         {/* Explore Page */}
         <div className={style.contentdiv}> 
             <h1 className={style.maintitle}>Explore mentors !</h1>
-            <div className='flex gap-5 items-center' >
-              <input className={style.searchbar} type="text" placeholder="Search" value={searchKey} onChange={(e)=> setSearchKey(e.target.value)} ></input>
-              <Button color="primary" variant="bordered" className='text-[16px] py-8 px-5 border-[#00246b8f] text-[#00246B] font-bold' onClick={searchMentorsHandler} >
+            <div className='flex gap-5 items-center'>
+              <input className={style.searchbar} type="text" placeholder="Search" value={searchKey}onChange={(e) => setSearchKey(e.target.value)}/>
+              <Button variant="bordered" className="text-[16px] py-8 px-5 border-[#00246b8f] text-[#FFFFFF] bg-[#00246B] font-bold" onClick={searchMentorsHandler}>
                 Search
               </Button>
+              {searchKey && (
+                <button className="ml-2 w-10 h-10 text-xl text-black-500 border-2 border-black rounded-full flex items-center justify-center hover:bg-black-200" onClick={() => setSearchKey('')} aria-label="Clear search">
+                  ✖
+                </button>
+              )}
             </div>
-
+            
             <div className='mt-[50px] mb-[50px]'>
               <div>
                 <ul className={style.titlelist}>
@@ -108,15 +113,15 @@ const Explore = () => {
                       <p className={mentorStyle.jobtitle}>{mentor.job_title}</p>
                       {/* <Link href={} > */}
                       <div className='ml-[20px] md:ml-0 ' >
-                          <Button color="primary" className='md:text-[16px] md:py-8 md:px-5 ' isLoading={isRedirecting} onClick={() => onRedirectingHandler(mentor._id)}  >View Profile</Button>
+                          <Button color="primary" className='md:text-[18px] md:py-8 md:px-5 ' isLoading={isRedirecting} onClick={() => onRedirectingHandler(mentor._id)}  >View Profile</Button>
                       </div>
                       {/* </Link> */}
                     </div>
                   ))
                 ) : (
-                  <div className='py-[64px] text-[18px] '>
+                  <div className='py-[64px] text-[18px] font-bold'>
                     <p>
-                        There's no Mentors!
+                      There's NO Mentor!
                     </p>
                 </div>
                 )

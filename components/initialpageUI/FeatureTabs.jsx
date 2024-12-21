@@ -64,9 +64,12 @@ export default function TabsDemo() {
   ];
 
   return (
+    <>
+    <p className={style.containertitle}>Available Features</p>
     <div className={style.tabcontainer}>
-      <Tabs tabs={tabs} />
+      <Tabs tabs={tabs}/>
     </div>
+    </>
   );
 }
 

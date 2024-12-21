@@ -85,20 +85,20 @@ const Userprofile = () => {
 
       {/* Mobile Nav Bar */}
       {isMobileMenuOpen && (
-        <ul className='absolute flex flex-col gap-y-8 text-center w-full md:hidden z-50 bg-gray-200 top-0 left-0 h-screen px-5 py-[200px] ' >
-            <Link href={'/'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+        <ul className='absolute flex flex-col gap-y-12 text-center w-full md:hidden z-50 bg-gray-200 top-0 left-0 h-screen px-5 py-[200px] ' >
+            <Link href={'/'} className='cursor-pointer font-bold hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
                 Dashboard
             </Link>
-            <Link  href={'/explore'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+            <Link  href={'/explore'} className='cursor-pointer font-bold hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
                 Explore
             </Link>
-            <Link href={'/matches'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+            <Link href={'/matches'} className='cursor-pointer font-bold hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
                 My Matches
             </Link>
-            <Link href={'/about'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+            <Link href={'/about'} className='cursor-pointer font-bold hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
                 About
             </Link>
-            <Link href={'/profile'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+            <Link href={'/profile'} className='cursor-pointer font-bold hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
                 Profile
             </Link>
         </ul>
@@ -117,7 +117,7 @@ const Userprofile = () => {
                         <p className={style.name}> { userInfo.username } </p>
                         <p className={style.jobtitle}> { userInfo.job_title } </p>
                         <div className='text-start flex gap-5 items-center' >
-                            <Button onPress={onOpenCreate} className='xl:text-[18px] text-[12px] !lg:px-[30px] mt-5 !py-7  w-[40%]  ' color='primary' >Edit Profile</Button>
+                            <Button onPress={onOpenCreate} className='xl:text-[18px] text-[12px] !lg:px-[30px] mt-5 !py-7  w-[40%]' color='primary' >Edit Profile</Button>
                             <Button onPress={onOpenAddSkill} className='xl:text-[16px] text-[12px] !lg:w-[50%] mt-5  !py-7 text-start w-[40%] ' color='primary'  >
                                 Add Skill
                             </Button>
@@ -154,7 +154,7 @@ const Userprofile = () => {
                 <ModalContent style={{ width: '500px', maxWidth: '500px' }}>
                 {(onClose) => (
                     <>
-                    <ModalHeader className="flex flex-col gap-1 text-[18px] font-bold ">Edit Profile</ModalHeader>
+                    <ModalHeader className="flex flex-col gap-1 text-[18px] font-bold text-center">Edit Profile</ModalHeader>
                     <ModalBody className='text-[16px]  ' >
                         <label> User Name </label>
                         <input type="text" value={name} className={inputStyle.input} style={{ width : "100%"}} onChange={(e) => setName(e.target.value)} />
@@ -208,7 +208,6 @@ const Userprofile = () => {
                 )}
                 </ModalContent>
             </Modal>
-
         </div>
         )}
 

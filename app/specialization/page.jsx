@@ -25,8 +25,8 @@ const page = () => {
     <img src="../../assets/images/specialization.svg" alt="Choose specialization" width="380px" className='m-auto'/>
     </div>
     <div className='w-1/2 flex items-center justify-center ' >
-      <div className=' md:ml-0 ml-[100%] ' >
-      <p className='text-[22px] mb-12 font-bold tracking-wide leading-relaxed'><span className='text-[24px] font-extrabold'>Choose ONE</span> <br/>specialization that you're most excited about<br/> from the options below !</p>
+      <div className=' md:ml-0 ml-[100%] text-[20px]' >
+      <p className='text-[22px] mb-12 font-bold tracking-wide leading-relaxed'><span className='text-[24px] font-extrabold'>Choose ONE</span> <br/>specialization that you're most excited about !</p>
         {specializations.length && specializations.map((specializations,index) => (
           <Button 
             color="primary" 

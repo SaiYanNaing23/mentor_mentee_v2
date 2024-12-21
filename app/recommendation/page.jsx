@@ -72,7 +72,6 @@ const Page = () => {
             color="secondary"
             size="lg"
             className="!text-[18px] !py-[25px] !px-[15px]"
-            
           >
             Go to Dashboard
           </Button>

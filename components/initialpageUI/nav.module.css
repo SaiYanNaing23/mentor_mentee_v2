@@ -21,3 +21,11 @@
     cursor: pointer;
 }
 
+@media (max-width: 482px){
+    .login, .getstarted{
+        border-radius: 10px;
+        font-size: 14px; 
+        padding: 6px 12px; 
+    }
+}
+

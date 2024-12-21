@@ -44,16 +44,6 @@ export const Tabs = ({
     minWidth: "100px", // Set a minimum width
   }}
 >
-  {/* {active.value === tab.value && (
-    <motion.div
-      layoutId="clickedbutton"
-      transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
-      className={cn(
-        "absolute inset-0 bg-gray-200 dark:bg-zinc-800 rounded-full text-white ",
-        activeTabClassName
-      )}
-    />
-  )} */}
 
   <span className="relative block !text-[#00246B] mb-[42px] text-[24px] font-bold ">
     {tab.title}

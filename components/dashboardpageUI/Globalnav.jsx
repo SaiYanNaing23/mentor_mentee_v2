@@ -28,12 +28,12 @@ const Globalnav = () => {
         </div>
         <div className={style.btndiv}>
             <Link href='/explore' >
-              <Button color='primary' className='text-[18px] py-8 px-5 '  >
+              <Button color='primary' className={style.browse}>
                 Browse Mentor
               </Button>
             </Link>
-            <Button className='text-[18px] py-8 px-5 ml-8' onClick={handleLogout}  >
-              Logout
+            <Button className={style.logout} onClick={handleLogout}  >
+              Log Out
             </Button>
         </div>
     </div>

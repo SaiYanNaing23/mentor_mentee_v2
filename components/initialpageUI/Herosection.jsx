@@ -15,7 +15,7 @@ const herosection = () => {
       <div className={style.rightdiv}>
       <h1 className={style.maintitle}>Achieve your goals <br/>faster with professional mentors 
       </h1>
-      <button onClick={()=> router.push('/login/signup')}  className={style.getstarted}>Get Started</button>
+      <button onClick={()=> router.push('/login/signup')} className={style.getstarted}>Get Started</button>
       </div>
     </div>
   )

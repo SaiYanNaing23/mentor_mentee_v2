@@ -15,10 +15,10 @@ const Contact = () => {
           <h2 className={style.subtext}>We hope to assist you in developing a professional career</h2>
           <h2 className={style.subtext}>Let's get ready to grow together with you on your learning journey !</h2>
         </div>
-        <div className={style.maildiv}>
+        {/* <div className={style.maildiv}>
           <input className={style.email} type="email" placeholder="Email"/>
           <button onClick={()=> router.push('/login/signup')}  className={style.getstarted}>Join Now</button>
-        </div>
+        </div> */}
     </div>
   )
 }

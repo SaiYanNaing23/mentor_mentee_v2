@@ -27,7 +27,7 @@ const MenteeChoice = () => {
         <img src="../../assets/images/career.svg" alt="choose career options" width="600px" className='m-auto'/>
       </div>
       <div className='w-1/2 flex items-center justify-center ' >
-        <div className=' md:ml-0 ml-[100%] ' >
+        <div className=' md:ml-0 ml-[100%]' >
           <p className='text-[22px] mb-12 font-bold tracking-wide leading-relaxed'><span className='text-[24px] font-extrabold'>Choose ONE</span> <br/>career path that aligns with your interests and goals<br/> from the options below !</p>
           {careers.length && careers.map((career,index) => (
             <Button 

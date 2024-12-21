@@ -22,6 +22,7 @@
     border: 1px solid #00206B;
     border-radius: 10px;
     padding-left: 10px;
+    padding-right: 30px;
     font-size: 16px;
     font-weight: 600;
 }
@@ -82,5 +83,11 @@
 @media (max-width : 950px){
     .searchbar{ 
         width: 90%; 
+    }
+}
+
+@media (max-width : 482px){
+    .maintitle{
+        font-size: 22px;
     }
 }

@@ -1,9 +1,8 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import style from '@/components/mymatchespageUI/mymatchesv1.module.css'
+import style from '@/components/mymatchespageUI/mymatches.module.css'
 import SideNavBar from '../navbar/sideNavBar'
 import { useAuthStore } from '@/store/auth';
-import moment from "moment";
 import Link from 'next/link';
 import { validateToken } from '@/utils/helper';
 
@@ -36,20 +35,20 @@ const Mymatches = () => {
 
       {/* Mobile Nav Bar */}
       {isMobileMenuOpen && (
-        <ul className='absolute flex flex-col gap-y-8 text-center w-full md:hidden z-50 bg-gray-200 top-0 left-0 h-screen px-5 py-[200px] ' >
-            <Link href={'/'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+        <ul className='absolute flex flex-col gap-y-12 text-center w-full md:hidden z-50 bg-gray-200 top-0 left-0 h-screen px-5 py-[200px] ' >
+            <Link href={'/'} className='cursor-pointer font-bold hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
                 Dashboard
             </Link>
-            <Link  href={'/explore'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+            <Link  href={'/explore'} className='cursor-pointer font-bold hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
                 Explore
             </Link>
-            <Link href={'/matches'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+            <Link href={'/matches'} className='cursor-pointer font-bold hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
                 My Matches
             </Link>
-            <Link href={'/about'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+            <Link href={'/about'} className='cursor-pointer font-bold hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
                 About
             </Link>
-            <Link href={'/profile'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+            <Link href={'/profile'} className='cursor-pointer font-bold hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
                 Profile
             </Link>
         </ul>
@@ -75,9 +74,9 @@ const Mymatches = () => {
                             </div>
                         ))
                     ) : (
-                        <div className='py-[64px] text-[18px] '>
-                            <p>
-                                You have not chosen a mentor. Explore mentors who aligns with your profession !
+                        <div className='py-[64px]'>
+                            <p className='text-[20px] font-bold'>
+                                You have not chosen a mentor.<br/>Explore mentors who aligns with your profession !
                             </p>
                         </div>
                     )}

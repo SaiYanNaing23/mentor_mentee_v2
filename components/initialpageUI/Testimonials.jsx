@@ -8,7 +8,7 @@ const Testimonials = () => {
         setToggle(index)
     }
     return (
-    <div className='mt-[50px] mb-[50px]'>
+    <div className={style.container}>
         <h1 className={style.sectiontitle}>Endorsement by Mentors</h1>
         <div>
             <ul className={style.titlelist}>
@@ -25,7 +25,7 @@ const Testimonials = () => {
                     <div className={style.testimonialdiv} >
                         <div className={style.box}>
                             <div className={style.info}>
-                                <img src="/assets/icons/profile.svg" alt="profile" />
+                                <img src="/assets/icons/profile2.svg" alt="profile" />
                                 <span>
                                     <p className={style.name}>Arjun Reddy</p>
                                     <p className={style.jobtitle}>
@@ -40,7 +40,7 @@ const Testimonials = () => {
                         </div>
                         <div className={style.box} >
                             <div className={style.info} >
-                                <img src="/assets/icons/profile.svg" alt="profile" />
+                                <img src="/assets/icons/profile2.svg" alt="profile" />
                                 <span>
                                     <p className={style.name}>Yu Thandar Khin</p>
                                     <p className={style.jobtitle}>
@@ -55,7 +55,7 @@ const Testimonials = () => {
                         </div>
                         <div className={style.box}>
                             <div className={style.info}>
-                                <img src="/assets/icons/profile.svg" alt="profile" />
+                                <img src="/assets/icons/profile2.svg" alt="profile" />
                                 <span>
                                     <p className={style.name}>Edward J</p>
                                     <p className={style.jobtitle}>
@@ -75,7 +75,7 @@ const Testimonials = () => {
                 <div className={style.testimonialdiv} >
                         <div className={style.box}>
                             <div className={style.info}>
-                                <img src="/assets/icons/profile.svg" alt="profile" />
+                                <img src="/assets/icons/profile2.svg" alt="profile" />
                                 <span>
                                     <p className={style.name}>Dr. Mateo Gomez</p>
                                     <p className={style.jobtitle}>
@@ -90,7 +90,7 @@ const Testimonials = () => {
                         </div>
                         <div className={style.box}>
                             <div className={style.info}>
-                                <img src="/assets/icons/profile.svg" alt="profile" />
+                                <img src="/assets/icons/profile2.svg" alt="profile" />
                                 <span>
                                     <p className={style.name}>Zoe Davis</p>
                                     <p className={style.jobtitle}>
@@ -105,7 +105,7 @@ const Testimonials = () => {
                         </div>
                         <div className={style.box}>
                             <div className={style.info}>
-                                <img src="/assets/icons/profile.svg" alt="profile" />
+                                <img src="/assets/icons/profile2.svg" alt="profile" />
                                 <span>
                                     <p className={style.name}>Dr. Olivia Rao</p>
                                     <p className={style.jobtitle}>
@@ -125,7 +125,7 @@ const Testimonials = () => {
                 <div className={style.testimonialdiv} >
                         <div className={style.box}>
                             <div className={style.info}>
-                                <img src="/assets/icons/profile.svg" alt="profile" />
+                                <img src="/assets/icons/profile2.svg" alt="profile" />
                                 <span>
                                     <p className={style.name}>Evan Wang</p>
                                     <p className={style.jobtitle}>
@@ -140,7 +140,7 @@ const Testimonials = () => {
                         </div>
                         <div className={style.box}>
                             <div className={style.info}>
-                                <img src="/assets/icons/profile.svg" alt="profile" />
+                                <img src="/assets/icons/profile2.svg" alt="profile" />
                                 <span>
                                     <p className={style.name}>Thar Aung Zaw</p>
                                     <p className={style.jobtitle}>
@@ -155,7 +155,7 @@ const Testimonials = () => {
                         </div>
                         <div className={style.box}>
                             <div className={style.info}>
-                                <img src="/assets/icons/profile.svg" alt="profile" />
+                                <img src="/assets/icons/profile2.svg" alt="profile" />
                                 <span>
                                     <p className={style.name}>Karnan Chhabara</p>
                                     <p className={style.jobtitle}>
@@ -175,7 +175,7 @@ const Testimonials = () => {
                 <div className={style.testimonialdiv} >
                         <div className={style.box}>
                             <div className={style.info}>
-                                <img src="/assets/icons/profile.svg" alt="profile" />
+                                <img src="/assets/icons/profile2.svg" alt="profile" />
                                 <span>
                                     <p className={style.name}>David Jordan</p>
                                     <p className={style.jobtitle}>
@@ -190,7 +190,7 @@ const Testimonials = () => {
                         </div>
                         <div className={style.box}>
                             <div className={style.info}>
-                                <img src="/assets/icons/profile.svg" alt="profile" />
+                                <img src="/assets/icons/profile2.svg" alt="profile" />
                                 <span>
                                     <p className={style.name}>Nikcole</p>
                                     <p className={style.jobtitle}>
@@ -205,7 +205,7 @@ const Testimonials = () => {
                         </div>
                         <div className={style.box}>
                             <div className={style.info}>
-                                <img src="/assets/icons/profile.svg" alt="profile" />
+                                <img src="/assets/icons/profile2.svg" alt="profile" />
                                 <span>
                                     <p className={style.name}>Kyi Sin Swe</p>
                                     <p className={style.jobtitle}>
@@ -225,7 +225,7 @@ const Testimonials = () => {
                     <div className={style.testimonialdiv}>
                         <div className={style.box}>
                             <div className={style.info}>
-                                <img src="/assets/icons/profile.svg" alt="profile" />
+                                <img src="/assets/icons/profile2.svg" alt="profile" />
                                 <span>
                                     <p className={style.name}>Naree Soma</p>
                                     <p className={style.jobtitle}>
@@ -240,7 +240,7 @@ const Testimonials = () => {
                         </div>
                         <div className={style.box}>
                             <div className={style.info}>
-                                <img src="/assets/icons/profile.svg" alt="profile" />
+                                <img src="/assets/icons/profile2.svg" alt="profile" />
                                 <span>
                                     <p className={style.name}>Richard Henson</p>
                                     <p className={style.jobtitle}>
@@ -255,7 +255,7 @@ const Testimonials = () => {
                         </div>
                         <div className={style.box}>
                             <div className={style.info}>
-                                <img src="/assets/icons/profile.svg" alt="profile" />
+                                <img src="/assets/icons/profile2.svg" alt="profile" />
                                 <span>
                                     <p className={style.name}>Rui Ji Yuk</p>
                                     <p className={style.jobtitle}>

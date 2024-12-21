@@ -82,9 +82,12 @@ const Buildingprofile = () => {
     }
     
     return (
+    <>
+    
     <div className='flex h-screen justify-between'>
         {/* Left Div */}
         <div className='w-full'>
+            <p className={style.pagetitle}>Create your own user profile ! Remember to fill all fields !</p>
             <form className={style.formdiv} onSubmit={onSubmitBuildProfile} >
                 {/* Form Left Side */}
                 <div className= 'flex justify-between gap-3 '>
@@ -174,6 +177,7 @@ const Buildingprofile = () => {
             </div>  
         </div>
     </div>
+    </>
   )
 }
 

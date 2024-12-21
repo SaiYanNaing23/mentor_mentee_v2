@@ -3,7 +3,7 @@ import style from '@/components/initialpageUI/results.module.css'
 
 const Results = () => {
   return (
-    <div className='mb-[96px] mt-[400px]' >
+    <div className={style.container}>
       <h1 className={style.title}>Results</h1>
       <div className={style.main}>
         <div className={style.branch}>

@@ -5,28 +5,16 @@
     justify-content: space-between;
 }
 
-.browse{
-    color:  #F0F3FA;
-    background-color: black;
-    border: 1px solid black; 
-    border-radius: 10px;
-    font-size: 16px; 
-    padding: 10px 20px; 
-    cursor: pointer;
-}
-.logout {
-    color: #FFFFFF;
-    background-color: red; 
-    border: 1px solid red;
-    border-radius: 10px;
-    font-size: 16px;
-    padding: 10px 20px;
-    cursor: pointer;
-    margin-left: 10px; 
-    transition: background-color 0.3s ease, color 0.3s ease;
+.browse, .logout{
+    font-size: 18px;
+    padding: 2rem 1.25rem 2rem 1.25rem;
+    margin-left: 15px;
 }
 
-.logout:hover {
-    background-color: darkred;
-    color: #F0F3FA;
+@media ( max-width: 482px ){
+    .browse, .logout{
+        font-size: 14px;
+        padding: 1.75rem 1rem 1.75rem 1rem;
+        margin-left: 10px;
+    }
 }
