@@ -2,6 +2,7 @@ import { User } from "../models/user.model.js";
 import bcryptjs from 'bcryptjs';
 import { generateTokenAndSetCookie } from "../utils/generateJwtToken.js";
 
+
 export const signUp = async (req, res) => {
     try {
         const { password, email } = req.body;
@@ -46,6 +47,7 @@ export const signUp = async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error', success: false });
     }
 };
+
 
 export const login = async (req, res) => {
     try {

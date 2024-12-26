@@ -1,5 +1,4 @@
 'use client'
-// import React from 'react'
 import { useEffect, useState } from "react"
 import style from "@/components/loginpageUI/signup.module.css"
 import { useRouter } from 'next/navigation'
@@ -7,7 +6,6 @@ import Link from 'next/link'
 import { useAuthStore } from "@/store/auth"
 import { Button } from "@nextui-org/react"
 import { toast } from "sonner"
-
 
 const Signup = () => {
   const { user } = useAuthStore()
@@ -18,34 +16,79 @@ const Signup = () => {
       return
     }
   },[user])
-  const [ username, setUsername] = useState("");
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isShowPw, setIsShowPw] = useState(false);
-  const { isSignUp, signup } = useAuthStore()
+  const {isSignUp, signup} = useAuthStore()
+  const [isLoading, setIsLoading] = useState(false);
 
-  const [ isLoading, setIsLoading ] = useState(false);
+  const validatePassword = (password) => {
+    const minLength = password.length >= 6;
+    const hasNumber = /\d/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    const hasLetter = /[a-zA-Z]/.test(password);
 
-  const onSubmitSignUpHandler = async (e) =>{
+    if (!minLength) {
+      toast.error("Error", { description: "Password must be at least 6 characters" });
+      return false;
+    }
+    if (!hasNumber) {
+      toast.error("Error", { description: "Password must contain at least one number" });
+      return false;
+    }
+    if (!hasSpecialChar) {
+      toast.error("Error", { description: "Password must contain at least one special character" });
+      return false;
+    }
+    if (!hasLetter) {
+      toast.error("Error", { description: "Password must contain at least one letter" });
+      return false;
+    }
+    return true;
+  };
+  
+  const onSubmitSignUpHandler = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
-    if(!email || !password) {
-      toast.error("Error", { description : "Email or Password is required."})
+  
+    if (!email || !password) {
+      toast.error("Error", { description: "Please fill all required fields" });
       setIsLoading(false);
-    } else{
-      signup({username, email, password})
+      return;
+    }
+  
+    if (!validatePassword(password)) {
+      setIsLoading(false);
+      return;
+    }
+  
+    try {
+      await signup({ email, password });
+      toast.success("Success", { description: "Signup successful!" });
+    } catch (error) {
+      if (error.message === "Email already exists") {
+        toast.error("Error", { description: "Email already exists" });
+      } else {
+        toast.error("Error", { description: "Something went wrong!" });
+      }
+    } finally {
       setIsLoading(false);
     }
-  }
-
+  };
+  
   const showPassword = () =>{
     setIsShowPw(!isShowPw)
   }
 
   return (
     <div className={style.wholediv}>
-
+      <div className={style.home}>
+        <Link href='/initial' >
+          <img src="../../assets/icons/home.svg" alt="Home Logo" width="50px"/>
+          <span className={`${style.tooltip}`}>Go back to Initial Page</span>
+        </Link>
+      </div>
         <div className={style.maindiv}>
           <div className={style.leftdiv}>
             <img src="../../assets/images/login_img1.svg" alt="SignUp Image" width="400px"/>
@@ -79,11 +122,9 @@ const Signup = () => {
                 <input type="checkbox" id="showpsw"/>
                 <label htmlFor="showpsw" onClick={showPassword} className="cursor-pointer ml-3 " >Show password</label>
               </div>
-              {/* <Link href="/buildingprofile"> */}
               <div className="w-full text-center" >
-                <Button color="primary" className="text-[16px] py-8 px-5 text-center mt-10 " isLoading={isLoading} type="submit" >Sign Up</Button>
+                <Button color="primary" className="text-center flex justify-center w-[30%] ml-[30%] text-[18px] font-bold py-8 px-5 mt-5" isLoading={isLoading} type="submit" >Sign Up</Button>
               </div>
-              {/* </Link> */}
             </form>
 
             <div className="p-[30px] font-[500] text-center"  >

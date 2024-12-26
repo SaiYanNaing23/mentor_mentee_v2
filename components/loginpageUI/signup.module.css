@@ -6,8 +6,36 @@
     flex-direction: column;
     justify-content: center; 
     align-items: center; 
+    position: relative; 
 }
-
+.home {
+    position: absolute; 
+    top: 20px; 
+    left: 20px;
+    z-index: 10; 
+}
+.home img {
+    position: relative;
+}
+.tooltip {
+    position: absolute;
+    top: 50%;
+    left: 60px;
+    transform: translateY(-50%);
+    background-color: #FFFFFF; 
+    color: #000000;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    visibility: hidden;
+    opacity: 0;
+    white-space: nowrap;
+    transition: visibility 0.2s, opacity 0.2s;
+}
+.home:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
 .maindiv{
     background-color: #F0F3FA;
     border-radius: 20px;

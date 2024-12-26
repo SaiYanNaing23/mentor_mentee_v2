@@ -40,12 +40,12 @@ export default function TabsDemo() {
       ),
     },
     {
-      title: "Messages",
-      value: "Messages",
+      title: "About",
+      value: "About",
       content: (
         <TabContent
-          page="Messages"
-          text={`You can easily communicate with the admin on "Messages" page\n Send messages to ask questions, share feedback, or seek any information you need !\n We are always ready to help you and support you !`}
+          page="About"
+          text={`You can see our organization's main goal and motivation status \nin the about section and  you can contact us\nthrough given social media platform accounts.`}
           imageSrc="../../assets/images/messages.svg"
         />
       ),

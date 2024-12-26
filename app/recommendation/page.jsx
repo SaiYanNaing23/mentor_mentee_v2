@@ -23,6 +23,14 @@ const Page = () => {
 
   return (
     <div className="flex items-center justify-center relative flex-col">
+      <div className="absolute top-5 left-5 flex items-center group">
+        <Link href="/initial">
+        <img src="../../assets/icons/home2.svg" alt="Home Logo" width="50px" />
+        <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-black text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+        Go back to Initial Page
+        </span>
+        </Link>
+      </div>
       <div>
         <h1 className='mt-[50px] mb-[20px] text-[24px] font-bold text-center' >
           Recommended Mentors 
@@ -49,7 +57,7 @@ const Page = () => {
                     {mentor.job_title}
                   </h1>
                 </div>
-                <div className='flex justify-end mr-3 ' >
+                <div className='flex justify-center mr-3 ' >
                   <Button
                       color='primary'
                       size="lg"
@@ -69,7 +77,7 @@ const Page = () => {
       <div className='ml-auto mr-[30px] mb-[30px] ' >
         <Link href='/' >
           <Button 
-            color="secondary"
+            color="primary"
             size="lg"
             className="!text-[18px] !py-[25px] !px-[15px]"
           >

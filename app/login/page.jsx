@@ -5,7 +5,6 @@ const page = () => {
     return (
       <div>
         <Login/>
-        {/* <Signup/> */}
       </div>
     )
 }

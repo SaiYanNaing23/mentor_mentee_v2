@@ -15,6 +15,10 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import {Card, CardHeader, CardBody, CardFooter, Divider, Image} from "@nextui-org/react";
 
+
+
+
+
 const Sidenav = () => {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const [ announcementTitle, setAnnouncementTitle ] = useState('')
@@ -89,20 +93,20 @@ const Sidenav = () => {
 
       {/* Mobile Nav Bar */}
       {isMobileMenuOpen && (
-        <ul className='absolute flex flex-col gap-y-12 text-center w-full md:hidden z-50 bg-gray-200 top-0 left-0 h-screen px-5 py-[200px] ' >
-            <Link href={'/'} className='cursor-pointer font-bold hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+        <ul className='absolute flex flex-col gap-y-8 text-center w-full md:hidden z-50 bg-gray-200 top-0 left-0 h-screen px-5 py-[200px] ' >
+            <Link href={'/'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
                 Dashboard
             </Link>
-            <Link  href={'/explore'} className='cursor-pointer font-bold hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+            <Link  href={'/explore'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
                 Explore
             </Link>
-            <Link href={'/matches'} className='cursor-pointer font-bold hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+            <Link href={'/matches'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
                 My Matches
             </Link>
-            <Link href={'/about'} className='cursor-pointer font-bold hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+            <Link href={'/about'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
                 About
             </Link>
-            <Link href={'/profile'} className='cursor-pointer font-bold hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
+            <Link href={'/profile'} className='cursor-pointer hover:font-extrabold text-[28px]  ' onClick={toggleMobileMenu} >
                 Profile
             </Link>
         </ul>
@@ -114,6 +118,7 @@ const Sidenav = () => {
         <div className={style.welcomediv}>
           <div className={style.leftdiv}>
             <h1 className={style.maintitle}>Glad you're here !</h1>
+            
             <h3 className={style.text}>Success starts with the right mentor<br/>
             Begin your match-making journey!</h3>
           </div>
@@ -139,14 +144,14 @@ const Sidenav = () => {
                                   <b>Google meeting link is </b>
                               </p>
                               <Link href={moment().isBetween(schedule.start_time, schedule.end_time) ? schedule.meeting_link : '#'} className={moment().isBetween(schedule.start_time, schedule.end_time) ? '' : 'text-gray-500 cursor-not-allowed'} >
-                                {schedule.meeting_link}
+                                  {schedule.meeting_link}
                               </Link>
                           </div>
                           <p>This link will be only available when it reaches the given session time</p>
                       </div>
                   ))
               ) : (
-                  <div className='py-[64px] ps-[50px] text-[18px] font-bold'>
+                  <div className='py-[64px] text-[18px] '>
                     <p>
                       You have no scheduled meeting yet. Choose a mentor and book a session ! 
                     </p>
@@ -156,7 +161,7 @@ const Sidenav = () => {
 
         {/* Feed back */}
         <div className='my-[84px]' >
-          <h1 className={style.title}>Hear From Our Users </h1>
+          <h1 className='text-[24px] font-bold text-center ' >Hear From Our Users </h1>
           <div className='lg:flex lg:justify-around' >
             {/* 1st mentee */}
             <Card className="xl:max-w-[350px] lg:max-w-[250px] my-[64px] ">
@@ -252,7 +257,7 @@ const Sidenav = () => {
                 { announcement.length ? (
                   <div>
                      { announcement.map((announcement)=> (
-                        <div className='flex mb-[20px] justify-between border-b-1 border-[#6b6b6c] pb-8 ' key={announcement._id} >
+                        <div className='flex mb-[20px] justify-between border-b-1 border-[#6b6b6c] pb-8 ' key={announcement._id}>
                           <div className='w-[75%]' >
                             <h1 className={style.announcetitle}> {announcement.title} </h1><br/>
                             <p className={style.announcetext}> {announcement.content} </p>
@@ -277,7 +282,41 @@ const Sidenav = () => {
               </div>
             </div>
         </div>
-      </div> 
+      </div>
+
+    {/* Models */}
+    <Modal 
+     isOpen={isOpen} 
+     onOpenChange={onOpenChange}
+    >
+        <ModalContent style={{ width: '500px', maxWidth: '800px' }}>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1 text-[18px] ">Create Announcement</ModalHeader>
+              <ModalBody>
+                <label>Title</label>
+                <input type="text" className={inputStyle.input} style={{width: "100%"}} value={announcementTitle} onChange={(e)=> setAnnouncementTitle(e.target.value)} />
+                <label>Text Area</label>
+                <textarea 
+                  id="bio" 
+                  rows="5" 
+                  className={style.input} 
+                  style={{ width: '100%', height: '150px', border: '1px solid #000' }} 
+                  value={announcementContent} 
+                  onChange={(e) => setAnnouncementContent(e.target.value)} ></textarea>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="danger" className='text-[16px] !py-8 px-5 ' variant="light" onPress={onClose}>
+                  Close
+                </Button>
+                <Button color="primary" className='text-[16px] !py-8 px-5 ' onPress={onCreateAnnouncementHandler}>
+                  Create
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+    </Modal>
 
     </div>
   )

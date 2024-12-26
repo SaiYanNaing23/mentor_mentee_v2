@@ -3,6 +3,7 @@ import { useMatchStore } from '@/store/match';
 import {Button} from "@nextui-org/react";
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react'
+import Link from 'next/link';
 
 const page = () => {
     const { specializations, fetchSkills } = useMatchStore()
@@ -20,7 +21,15 @@ const page = () => {
       }, [specializations])
 
   return (
-    <div className='h-screen flex w-screen' >
+    <div className='h-screen flex w-screen relative' >
+      <div className="absolute top-5 left-5 flex items-center group">
+        <Link href="/initial">
+        <img src="../../assets/icons/home2.svg" alt="Home Logo" width="50px" />
+        <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-black text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+        Go back to Initial Page
+        </span>
+        </Link>
+      </div>
     <div className='w-1/2 items-center justify-center h-screen md:flex hidden' >
     <img src="../../assets/images/specialization.svg" alt="Choose specialization" width="380px" className='m-auto'/>
     </div>
@@ -32,7 +41,7 @@ const page = () => {
             color="primary" 
             size='lg' 
             key={index} 
-            className='!text-[18px] !py-[20px] !px-[25px] mr-5 mb-8 ' 
+            className='!text-[18px] !py-[20px] !px-[25px] mr-5 mb-8 hover:bg-green-500 hover:text-black' 
             onClick={() => onChooseSpecializationsHandler(specializations)}
           >
             {specializations}

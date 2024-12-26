@@ -16,7 +16,7 @@ const Globalnav = () => {
     // Reset the auth store state
     logout(); 
     // Redirect to login page
-    router.push('/login'); 
+    router.push('/initial'); 
   };
 
   return (

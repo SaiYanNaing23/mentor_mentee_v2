@@ -12,16 +12,19 @@ export const useAuthStore = create((set) => ({
   signup: async (credentials) => {
     set({ isSignUp: true });
     try {
-      const { data } = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/auth/signup`,
-        credentials
-      );
-      Cookies.set("token", data.user.token); 
-      set({ user: data.user, isSignUp: false });
-    } catch (error) {
-      console.error("Signup error: ", error.response?.data?.message || error.message);
-      set({ user: null, isSignUp: false });
-    }
+    const { data } = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/auth/signup`,
+      credentials
+    );Cookies.set("token", data.user.token); 
+    set({ user: data.user, isSignUp: false });
+  } catch (error) {
+    console.error("Signup error: ", error.response?.data?.message || error.message);
+    set({ user: null, isSignUp: false });
+    toast.error("Error", {
+      description: error.response?.data?.message || "Something went wrong!",
+    });
+    throw error.response?.data || error;
+  }
   },
 
   // Login function

@@ -12,7 +12,6 @@ import moment from "moment";
 import { toast } from 'sonner';
 import Link from 'next/link';
 
-
 const detail = () => {
     const { mentors, agreementMutation, fetchMentorDetails } = useMentorStore()
     const [ agree, setAgree ] = useState(false)
@@ -115,7 +114,7 @@ const detail = () => {
           // If already selected, remove it
           setSelectedSchedule((prev) =>
             prev.filter((s) => s.startDate !== schedule.startDate)
-          );
+        );
         } else {
           // Add it if not selected
           setSelectedSchedule((prev) => [...prev, schedule]);
@@ -280,7 +279,9 @@ const detail = () => {
                                 </div>
                             ) : (
                                 <div className="border-3 rounded-2xl p-12 -mt-20 mr-10 min-w-[35%] bg-white mentor-detail-warp-agree">
-                                <h3 className="xl:text-[18px] text-[12px]  font-bold text-center">Choose Schedules</h3>
+                                <h3 className="xl:text-[18px] text-[12px]  font-bold text-center mb-4">Choose Schedules</h3>
+                                <h3 className="xl:text-[18px] text-[12px] font-bold text-center text-red-600">Time Zone is based on UTC Time</h3>
+                                <h3 className="xl:text-[18px] text-[12px] font-bold text-center text-red-600">Make sure to adjust with local time !</h3>
                                 {schedulesForMentee.length > 0 ? (
                                 <div className='grid sm:grid-cols-2 grid-cols-1 mt-9 gap-3 ' >
                                     {schedulesForMentee.map((schedule, index) => {
