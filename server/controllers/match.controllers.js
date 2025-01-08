@@ -156,7 +156,7 @@ export const matching = async (req, res) => {
 
         // Content based recommender
 
-        // User id and specification
+        // User id and specification as posts 
         const posts = [
             {
               id: user._id.toString(),

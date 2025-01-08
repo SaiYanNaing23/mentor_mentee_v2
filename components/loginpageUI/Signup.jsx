@@ -91,7 +91,7 @@ const Signup = () => {
       </div>
         <div className={style.maindiv}>
           <div className={style.leftdiv}>
-            <img src="../../assets/images/login_img1.svg" alt="SignUp Image" width="400px"/>
+            <img src="../../assets/images/sign_up.png" alt="SignUp Image" width="600px"/>
           </div>
           <div className={style.rightdiv}>
             <h1 className={style.title}>Sign Up</h1>

@@ -36,7 +36,7 @@ const Login = () => {
       if (response?.message === 'Email not found') {
         toast.error("Error", {description: "Email not found"});
       } else {
-        toast.error("Error", {description: "Inavlid credentials"});
+        toast.error("Error", {description: "Invalid credentials"});
       }
       setIsLoading(false);
     }
